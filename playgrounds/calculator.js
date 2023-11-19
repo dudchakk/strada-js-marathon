@@ -6,7 +6,7 @@ const first_value = +prompt("Enter first value:");
 const second_value = +prompt("Enter second value:");
 const operation = prompt("Enter an operation to perform (+, -, * or /):");
 
-if(typeof(first_value) != Number || typeof(second_value) != Number)
+if(typeof(first_value) != "number" || typeof(second_value) != "number")
 {
     throw("Invalid value: must be number");
 }
