@@ -2,11 +2,13 @@
 // запитати, що хочемо здійснити: +, -, *, /
 // вивести значення 
 
-const first_value = +prompt("Enter first value:");
-const second_value = +prompt("Enter second value:");
-const operation = prompt("Enter an operation to perform (+, -, * or /):");
+const prompt = require("prompt-sync")();
 
-if(typeof(first_value) != "number" || typeof(second_value) != "number")
+const first_value = +prompt("Enter first value: ");
+const second_value = +prompt("Enter second value: ");
+const operation = prompt("Enter an operation to perform (+, -, * or /): ");
+
+if(!Number.isInteger(first_value) || !Number.isInteger(second_value))
 {
     throw("Invalid value: must be number");
 }
