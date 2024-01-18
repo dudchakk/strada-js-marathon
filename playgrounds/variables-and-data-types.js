@@ -25,4 +25,14 @@ if(true) {
     let test1 = "test1";
 }
 
-alert(test1);
+// alert(test1);
+
+//
+
+// alert(-1 / 0);
+// alert(typeof("" / 0));
+
+let var1;
+var1 = 2;
+var1 = null;
+alert(typeof var1);
