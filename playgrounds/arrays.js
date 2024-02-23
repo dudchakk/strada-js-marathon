@@ -63,3 +63,69 @@ function getMaxSubSum(arr)
 }
 
 // console.log(getMaxSubSum([-1, -2, -3]));
+
+// 
+
+function camelize(str)
+{
+    let arr = str
+    .split("-")
+    .map((item, index) => index == 0 ? item : item[0].toUpperCase() + item.slice(1))
+    .join("");
+
+    return arr;
+}
+
+// console.log(camelize("-webkit-transition"));
+
+// array of >= a && <= b
+
+function filterRange(arr, a, b)
+{
+    return arr.filter((item) => item >= a && item <= b);
+}
+
+// let arr = [5, 3, 8, 1];
+// console.log(filterRange( arr, 1, 4));
+
+// 
+
+function filterRangeInPlace(arr, a, b)
+{
+    for(let i = 0; i < arr.length; i++)
+    {
+        if(arr[i] < a || arr[i] > b)
+        {
+            arr.splice(i, 1);
+            i--;
+        }
+    }
+    return arr;
+}
+
+// let arr = [5, 3, 8, 1];
+// filterRangeInPlace(arr, 1, 4);
+// console.log(arr);
+
+// 
+
+// let arr = [5, 2, 1, -10, 8];
+// arr.sort((a, b) => b - a);
+// console.log(arr);
+
+
+// 
+
+function copySorted(arr)
+{
+    let arr1 = arr.slice();
+    arr1.sort((a, b) => a.localeCompare(b));
+    return arr1;
+}
+
+let arr = ["HTML", "JavaScript", "CSS"];
+
+let sorted = copySorted(arr);
+
+console.log( sorted ); // CSS, HTML, JavaScript
+console.log( arr );
