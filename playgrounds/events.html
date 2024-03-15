@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        #field {
+          width: 200px;
+          height: 150px;
+          border: 10px solid black;
+          background-color: #00FF00;
+          overflow: hidden;
+          position: relative;
+        }
+
+        #ball {
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: 1s all;
+            width: 40px;
+            height: 40px;
+        }
+      </style>
+</head>
+<body style="height:2000px">
+
+    Натисніть поле, щоб перемістити м’яч.
+    <br> М’яч ніколи не повинен покидати поля.
+
+    <div id="field">
+        <img src="https://en.js.cx/clipart/ball.svg" id="ball"> . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+        . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+    </div>
+
+    <script>
+        field = document.getElementById("field");
+        ball = document.getElementById("ball");
+        
+        field.onclick = function(event) {
+            fieldCoords = field.getBoundingClientRect();
+            
+            ball_left = event.clientX - fieldCoords.x - field.clientLeft - ball.clientWidth / 2;
+            ball_top = event.clientY - fieldCoords.y - field.clientTop - ball.clientHeight / 2;
+        
+            if(ball_left < 0) ball_left = 0;
+            if(ball_top < 0) ball_top = 0;
+
+            if(ball_left + ball.clientWidth > field.clientWidth) {
+                ball_left = field.clientWidth - ball.clientWidth;
+            }
+            
+            if(ball_top + ball.clientHeight > field.clientHeight) {
+                ball_top = field.clientHeight - ball.clientHeight;
+            }
+
+            ball.style.left = ball_left + 'px';
+            ball.style.top = ball_top + 'px';
+        }
+    </script>
+    
+
+    <!-- <input type="button" id="button" value="Сховати">
+    <script>
+        button = document.getElementById("button");
+        button.onclick = function()
+        {
+            this.hidden = true;
+        }
+    </script> -->
+    
+
+    <!-- <input type="button" id="hider" value="Натисніть, щоб текст зник" />
+    <div id="text">Текст</div>
+    <script>
+        elem = document.getElementById("hider");
+        elem.onclick = function() {
+            text = document.getElementById("text");
+            text.hidden = true;
+        }
+    </script> -->
+</body>
+</html>
