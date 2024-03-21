@@ -12,7 +12,7 @@ let operation_print = {
     div: "÷",
 }
 
-let expHTML = document.querySelector(".numbers-expression");
+let expHTML = document.querySelector(".calc-header");
 let input = []; // 0 - value1, 1 - oper, 2 - value2
 let number = "";
 let expression = "";
