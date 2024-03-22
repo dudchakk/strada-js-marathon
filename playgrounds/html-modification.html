@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul id="ul">
+        <li id="one">1</li>
+        <li id="two">4</li>
+      </ul>
+
+    <script>
+        document.getElementById('ul').firstChild.nextSibling.insertAdjacentHTML('afterend', '<li>2</li><li>3</li>');
+    </script>
+    <!-- <h1>Створіть список</h1>
+    
+    <script>
+        let ul = document.createElement('ul');
+        document.body.append(ul);
+        
+        while(true)
+        {
+            let listText = prompt("Enter a list text");
+            console.log(listText);
+            
+            if(!listText) break;
+            
+            let elem = document.createElement('li');
+            elem.textContent = listText;
+            ul.append(elem);
+        }
+    </script> -->
+</body>
+</html>

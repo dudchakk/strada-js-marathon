@@ -1,0 +1,31 @@
+<!doctype html>
+<body>
+<a name="list">список</a>
+<ul>
+  <li><a href="http://google.com">http://google.com</a></li>
+  <li><a href="/tutorial">/tutorial.html</a></li>
+  <li><a href="local/path">local/path</a></li>
+  <li><a href="ftp://ftp.com/my.zip">ftp://ftp.com/my.zip</a></li>
+  <li><a href="http://nodejs.org">http://nodejs.org</a></li>
+  <li><a href="http://internal.com/test">http://internal.com/test</a></li>
+</ul>
+
+<script>
+  // налаштування style для одного посилання
+  // let link = document.querySelector('a');
+  // link.style.color = 'orange';
+
+  let links = document.querySelectorAll('a');
+
+for (let link of links) {
+  let href = link.getAttribute('href');
+  if (!href) continue; // немає атрибуту
+
+  if (!href.includes('://')) continue; // немає протоколу
+
+  if (href.startsWith('http://internal.com')) continue; // внутрішня
+
+  link.style.color = 'orange';
+}
+</script>
+</body>
