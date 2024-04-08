@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Натисніть клавішу:</h1>
+    <input type="button" value="Натисніть, щоб побачити форму" onclick="showPrompt('<div>Enter something:'), function(value) { alert(value);}">
+    
+    <!-- <div id="prompt-form-container">
+        <form id="prompt-form">
+          <div id="prompt-message">Введіть щось...
+            <br>Будь-ласка..</div>
+          <input name="text" type="text">
+          <input type="submit" value="Ok">
+          <input type="button" name="cancel" value="Скасувати">
+        </form>
+      </div> -->
+
+      <script>
+        function showPrompt(html, callback)
+        {
+            let form = document.createElement('form');
+            form.innerHTML = html;
+            form.innerHTML += '<input name="text" type="text">';
+            form.innerHTML += '<input type="submit" value="Ok">';
+            form.innerHTML += '<input type="button" name="cancel" value="Скасувати">';
+
+            document.body.append(form);
+            let input1 = document.querySelector('input[name="text"]');
+            form.onsubmit = function() {
+                alert(input1.value);
+            }
+        }
+      </script>
+</body>
+</html>
