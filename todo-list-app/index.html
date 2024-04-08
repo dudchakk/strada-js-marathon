@@ -14,57 +14,66 @@
 <body>
     <div class="container">
         <div class="content-container">
-            <div class="title">HIGH</div>
-            <div class="input-cont">
-                <input type="text" class="input" placeholder="Add new important task">
-                <div class="add-icon-cont">
-                    <img src="images/close-icon.svg" alt="close icon" class="add-icon-image">
-                </div>
-            </div>
-            <div class="task-cont">
-                <img src="images/Ellipse.svg" alt="ellipse icon" class="ellipse-icon-image">
-                <p class="task-text">
-                    Ось вам і дуже цікава тема. Ви напевно помітили, що ваші файли з кодом стають дедалі об'ємнішими, що хочеться винести деякі речі кудись за межі основної програми.
-                </p>
-                <img src="images/close-icon.svg" alt="close icon" class="close-icon-image">
-            </div>
-            <div class="task-cont">
-                <img src="images/Ellipse.svg" alt="ellipse icon" class="ellipse-icon-image">
-                <p class="task-text">
-                    Зверстати цей TODO list
-                </p>
-                <img src="images/close-icon.svg" alt="close icon" class="close-icon-image">
-            </div>
-            <div class="task-cont gray-task-cont">
-                <div class="dov-img-cont">
-                    <div class="gray-img-cont">
-                        <img src="images/Ellipse.svg" alt="ellipse icon" class="ellipse-icon-image gray-ellipse-image">
-                        <img src="images/Ellipse-gray.svg" alt="ellipse icon" class="ellipse-icon-image gray-ellipse-image-4">
+            <div class="container-high">
+                <div class="title">HIGH</div>
+                <div class="input-cont">
+                    <form name="form-high" class="input" onsubmit="addNewTaskHigh(event)">
+                        <input type="text" class="input" placeholder="Add new important task" name="input">
+                    </form>
+                    <div class="add-icon-cont">
+                        <img src="images/close-icon.svg" alt="close icon" class="add-icon-image">
                     </div>
                 </div>
-                <p class="task-text">
-                    Почати виконувати завдання
-                </p>
-                <img src="images/close-icon.svg" alt="close icon" class="close-icon-image">
-            </div>
-
-            <div class="title">LOW</div>
-            <div class="input-cont">
-                <input type="text" class="input" placeholder="Add new task">
-                <div class="add-icon-cont">
-                    <img src="images/close-icon.svg" alt="close icon" class="add-icon-image">
+                <div class="task-cont">
+                    <img src="images/Ellipse.svg" alt="ellipse icon" class="ellipse-icon-image">
+                    <p class="task-text">
+                        Ось вам і дуже цікава тема. Ви напевно помітили, що ваші файли з кодом стають дедалі об'ємнішими, що хочеться винести деякі речі кудись за межі основної програми.
+                    </p>
+                    <img src="images/close-icon.svg" alt="close icon" class="close-icon-image">
+                </div>
+                <div class="task-cont">
+                    <img src="images/Ellipse.svg" alt="ellipse icon" class="ellipse-icon-image">
+                    <p class="task-text">
+                        Зверстати цей TODO list
+                    </p>
+                    <img src="images/close-icon.svg" alt="close icon" class="close-icon-image">
+                </div>
+                <div class="task-cont gray-task-cont">
+                    <div class="dov-img-cont">
+                        <div class="gray-img-cont">
+                            <img src="images/Ellipse.svg" alt="ellipse icon" class="ellipse-icon-image gray-ellipse-image">
+                            <img src="images/Ellipse-gray.svg" alt="ellipse icon" class="ellipse-icon-image gray-ellipse-image-4">
+                        </div>
+                    </div>
+                    <p class="task-text">
+                        Почати виконувати завдання
+                    </p>
+                    <img src="images/close-icon.svg" alt="close icon" class="close-icon-image">
                 </div>
             </div>
-            <div class="task-cont">
-                <img src="images/Ellipse.svg" alt="ellipse icon" class="ellipse-icon-image">
-                <p class="task-text">
-                    Переглянути ютубчик
-                </p>
-                <img src="images/close-icon.svg" alt="close icon" class="close-icon-image">
+
+            <div class="container-low">
+                <div class="title">LOW</div>
+                <div class="input-cont">
+                    <form name="form-low" class="input" onsubmit="addNewTaskLow(event)">
+                        <input type="text" class="input" placeholder="Add new task" name="input">
+                    </form>
+                    <div class="add-icon-cont">
+                        <img src="images/close-icon.svg" alt="close icon" class="add-icon-image">
+                    </div>
+                </div>
+                <div class="task-cont">
+                    <img src="images/Ellipse.svg" alt="ellipse icon" class="ellipse-icon-image">
+                    <p class="task-text">
+                        Переглянути ютубчик
+                    </p>
+                    <img src="images/close-icon.svg" alt="close icon" class="close-icon-image">
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- <script src="main.js"></script> -->
+    <script type="module" src="./view.js"></script>
+    <script type="module" src="./main.js"></script>
 </body>
 </html>
