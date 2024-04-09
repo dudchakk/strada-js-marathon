@@ -20,6 +20,7 @@ function addNewTask(form)
     close.src = "images/close-icon.svg";
     close.alt = "close icon";
     close.classList.add('close-icon-image');
+    close.addEventListener('click', deleteTask);
     container.append(close);
 
     return container;
@@ -43,6 +44,12 @@ export function addNewTaskLow(event)
     event.preventDefault();
     formLow.input.value = "";
     formLow.input.blur();
+}
+
+export function deleteTask(event)
+{
+    console.log(1);
+    event.currentTarget.parentNode.remove();
 }
 
 // const list = [
