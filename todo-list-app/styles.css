@@ -67,7 +67,9 @@
 
 .task-text {
     padding: 0px 10px;
+    width: 397px;
     flex-grow: 1;
+    word-wrap: break-word;
 }
 
 .close-icon-image {
