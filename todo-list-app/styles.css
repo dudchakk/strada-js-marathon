@@ -75,28 +75,26 @@
     transform: rotate(45deg);
 }
 
-.gray-task-cont {
+.task-cont-done {
     background-color: #F4F4F4;
 }
 
-.dov-img-cont {
+.img-cont-done {
     width: 21px;
-}
-
-.gray-img-cont {
     position: relative;
 }
 
-.gray-ellipse-image {
+.ellipse-image-done {
     position: absolute;
     top: 0;
     left: 0;
 }
 
-.gray-ellipse-image-4 {
+.gray-ellipse {
     position: absolute;
     top: 3px;
     left: 3px;
     width: 15px;
     height: 15px; 
+    pointer-events: none;
 }

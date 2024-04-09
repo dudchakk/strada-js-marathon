@@ -1,9 +1,11 @@
-import {addNewTaskHigh, addNewTaskLow, deleteTask} from './main.js';
+import {addNewTaskHigh, addNewTaskLow, deleteTask, changeTaskStatus} from './main.js';
 
 window.addNewTaskHigh = addNewTaskHigh;
 window.addNewTaskLow = addNewTaskLow;
 window.deleteTask = deleteTask;
-// document.querySelector('form[name="form-high"]').addEventListener('submit', addNewTaskHigh(event));
+window.changeTaskStatus = changeTaskStatus;
+
+// document.querySelector('form[name="form-high"]').addEventListener('submit', addNewTaskHigh);
 
 export let formHigh = document.forms["form-high"];
 export let contHigh = document.querySelector('.container-high');

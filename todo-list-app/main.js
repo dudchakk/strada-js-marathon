@@ -9,6 +9,7 @@ function addNewTask(form)
     ellipse.src = "images/Ellipse.svg";
     ellipse.alt = "ellipse icon";
     ellipse.classList.add('ellipse-icon-image');
+    ellipse.addEventListener('click', changeTaskStatus);
     container.append(ellipse);
 
     let paragraph = document.createElement('p');
@@ -48,8 +49,38 @@ export function addNewTaskLow(event)
 
 export function deleteTask(event)
 {
-    console.log(1);
     event.currentTarget.parentNode.remove();
+}
+
+export function changeTaskStatus(event)
+{
+    if (event.currentTarget.classList.contains('ellipse-image-done')) 
+    {
+        event.currentTarget.parentNode.parentNode.classList.remove('task-cont-done');
+
+        event.currentTarget.parentNode.parentNode.prepend(event.currentTarget);
+        event.currentTarget.classList.remove('ellipse-image-done');
+        
+        event.currentTarget.nextSibling.firstChild.remove();
+        event.currentTarget.nextSibling.remove();
+    }
+    else 
+    {
+        event.currentTarget.parentNode.classList.add('task-cont-done');
+        
+        let imgContainer = document.createElement('div');
+        imgContainer.classList.add('img-cont-done');
+        event.currentTarget.parentNode.prepend(imgContainer);
+        
+        event.currentTarget.classList.add('ellipse-image-done');
+        imgContainer.append(event.currentTarget);
+        
+        let grayEllipse = document.createElement('img');
+        grayEllipse.src = "images/Ellipse-gray.svg";
+        grayEllipse.alt = "gray ellipse";
+        grayEllipse.classList.add('ellipse-icon-image', 'gray-ellipse');
+        imgContainer.append(grayEllipse);
+    }
 }
 
 // const list = [

@@ -30,18 +30,16 @@
                     <img src="images/close-icon.svg" alt="close icon" class="close-icon-image" onclick="deleteTask(event)">
                 </div>
                 <div class="task-cont">
-                    <img src="images/Ellipse.svg" alt="ellipse icon" class="ellipse-icon-image">
+                    <img src="images/Ellipse.svg" alt="ellipse icon" class="ellipse-icon-image" onclick="changeTaskStatus(event)">
                     <p class="task-text">
                         Зверстати цей TODO list
                     </p>
                     <img src="images/close-icon.svg" alt="close icon" class="close-icon-image" onclick="deleteTask(event)">
                 </div>
-                <div class="task-cont gray-task-cont">
-                    <div class="dov-img-cont">
-                        <div class="gray-img-cont">
-                            <img src="images/Ellipse.svg" alt="ellipse icon" class="ellipse-icon-image gray-ellipse-image">
-                            <img src="images/Ellipse-gray.svg" alt="ellipse icon" class="ellipse-icon-image gray-ellipse-image-4">
-                        </div>
+                <div class="task-cont task-cont-done">
+                    <div class="img-cont-done">
+                        <img src="images/Ellipse.svg" alt="ellipse icon" class="ellipse-icon-image ellipse-image-done" onclick="changeTaskStatus(event)">
+                        <img src="images/Ellipse-gray.svg" alt="ellipse icon" class="ellipse-icon-image gray-ellipse">
                     </div>
                     <p class="task-text">
                         Почати виконувати завдання
