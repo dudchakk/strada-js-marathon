@@ -2,49 +2,80 @@ import {formHigh, formLow, contHigh, contLow} from './view.js';
 
 function addNewTask(form)
 {
-    let container = document.createElement('div');
-    container.classList.add('task-cont');
+    try {
+        if(form.input.value == "")
+            throw new SyntaxError("Task can't be empty");
+        
+        let container = document.createElement('div');
+        container.classList.add('task-cont');
 
-    let ellipse = document.createElement('img');
-    ellipse.src = "images/Ellipse.svg";
-    ellipse.alt = "ellipse icon";
-    ellipse.classList.add('ellipse-icon-image');
-    ellipse.addEventListener('click', changeTaskStatus);
-    container.append(ellipse);
+        let ellipse = document.createElement('img');
+        ellipse.src = "images/Ellipse.svg";
+        ellipse.alt = "ellipse icon";
+        ellipse.classList.add('ellipse-icon-image');
+        ellipse.addEventListener('click', changeTaskStatus);
+        container.append(ellipse);
 
-    let paragraph = document.createElement('p');
-    paragraph.textContent = form.input.value;
-    paragraph.classList.add('task-text');
-    container.append(paragraph);
+        let paragraph = document.createElement('p');
+        paragraph.textContent = form.input.value;
+        paragraph.classList.add('task-text');
+        container.append(paragraph);
 
-    let close = document.createElement('img');
-    close.src = "images/close-icon.svg";
-    close.alt = "close icon";
-    close.classList.add('close-icon-image');
-    close.addEventListener('click', deleteTask);
-    container.append(close);
+        let close = document.createElement('img');
+        close.src = "images/close-icon.svg";
+        close.alt = "close icon";
+        close.classList.add('close-icon-image');
+        close.addEventListener('click', deleteTask);
+        container.append(close);
 
-    return container;
+        return container;
+    }
+    catch(err) {
+        if (err instanceof SyntaxError) 
+        {
+            alert(err.message + "!");
+            throw new SyntaxError("Trying to create an empty task");
+        }
+        else throw err;
+    }
 }
 
 export function addNewTaskHigh(event)
 {
-    let container = addNewTask(formHigh);
-    
-    contHigh.append(container);
-    event.preventDefault();
-    formHigh.input.value = "";
-    formHigh.input.blur();
+    try {
+        let container = addNewTask(formHigh);
+        
+        contHigh.append(container);
+        event.preventDefault();
+        formHigh.input.value = "";
+        formHigh.input.blur();
+    }
+    catch(err) {
+        if (err instanceof SyntaxError) 
+        {
+            return;
+        }
+        else throw err;
+    }
 }
 
 export function addNewTaskLow(event)
 {
-    let container = addNewTask(formLow);
-    
-    contLow.append(container);
-    event.preventDefault();
-    formLow.input.value = "";
-    formLow.input.blur();
+    try {
+        let container = addNewTask(formLow);
+        
+        contLow.append(container);
+        event.preventDefault();
+        formLow.input.value = "";
+        formLow.input.blur();
+    }
+    catch(err) {
+        if (err instanceof SyntaxError) 
+        {
+            return;
+        }
+        else throw err;
+    }
 }
 
 export function deleteTask(event)
