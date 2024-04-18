@@ -15,6 +15,7 @@ let operation_print = {
     div: "÷",
 };
 
+// переписати input на об'єкт
 let input = []; // 0 - value1, 1 - oper, 2 - value2
 let number = "";
 let expression = "";
@@ -76,10 +77,12 @@ export function inputRemoveOne()
 
 function returnError(value1, value2, oper)
 {
+    // написати перевірку з sum i sub через константу, бо неясно що це таке
     if ((!value1 || !value2) 
         && !(value2 && (oper == "sum" || oper == "sub"))) {
         return "Error: Invalid argument";
     }
+    // тут так само константу
     if(oper == "div" && +value2 == 0)
     {
         return "Error: Division by zero";
@@ -88,6 +91,7 @@ function returnError(value1, value2, oper)
 
 export function Calculate()
 {
+    // константа замість "="
     inputPush("=");
     
     let value1 = input[0];
