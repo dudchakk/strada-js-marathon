@@ -112,21 +112,22 @@ li {
     line-height: 44px;
     font-size: 18px;
     border: 0 1px solid black;
+    transition: all 0.5s ease;
 }
 
 .white-tab {
-    width: 99px;
+    width: 100px;
     text-align: center;
     line-height: 44px;
     font-size: 18px;
 }
+.white-tab:active {
+    transform: scale(0.95);
+    /* background-color: aqua; */
+}
 
 .border-left {
     border-left: 1px solid black;
-}
-
-.border-right {
-    border-right: 1px solid black;
 }
 
 .tab {

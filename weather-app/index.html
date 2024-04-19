@@ -14,7 +14,7 @@
         <div class="content-container">
             <div class="second-content-container">
                 <form class="search-container">
-                    <input type="text" placeholder="Aktobe" class="input">
+                    <input type="text" placeholder="Aktobe" class="input" name="input">
                     <div class="search-button-container">
                         <input type="image" src="images/search.svg" class="search-icon">
                     </div>
@@ -139,9 +139,9 @@
                             </div>
                         </div>
                         <div class="details-container">
-                            <div class="black-tab">Now</div>
-                            <div class="white-tab">Details</div>
-                            <div class="white-tab border-left">Forecast</div>
+                            <div class="black-tab" id="button-now">Now</div>
+                            <div class="white-tab" id="button-details">Details</div>
+                            <div class="white-tab border-left" id="button-forecast">Forecast</div>
                         </div>
                     </div>
                     <div class="container-locations">
@@ -161,5 +161,8 @@
             </div>
         </div>
     </div>
+
+    <script type="module" src="view.js"></script>
+    <script type="module" src="main.js"></script>
 </body>
 </html>
