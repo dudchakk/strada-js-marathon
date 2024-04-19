@@ -14,12 +14,18 @@ export function chooseNewCity(event)
     const url = `${serverUrl1}?q=${city}&appid=${apiKey}`;
 
     fetch(url)
-        .then(response => response.json())
-        // .then(json => console.log(json));
-        .then(json => {
-            currentCity.textContent = json.name;
-            tempNow.textContent = json.main.temp;
-        });
+    .then(response => {
+        if(!response.ok) {
+            throw new Error(`Error ${response.status}: ${response.statusText}`);
+        }
+        return response.json();
+    })
+    // .then(json => console.log(json));
+    .then(json => {
+        currentCity.textContent = json.name;
+        tempNow.textContent = json.main.temp;
+    })
+    .catch(error => alert(error.message));
 }
 
 export function showTabNow()
