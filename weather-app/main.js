@@ -17,6 +17,14 @@ function calculateTemperature(temp_k)
     return Math.round(temp_k - 273.15);
 }
 
+function convertUnixToDate(timestamp, shift)
+{
+    var date = new Date((timestamp + shift) * 1000);
+    var hours = "0" + date.getHours();
+    var minutes = "0" + date.getMinutes();
+    return hours.slice(-2) + ':' + minutes.slice(-2);
+}
+
 function chooseNewCity(city)
 {
     const serverUrl1 = 'http://api.openweathermap.org/data/2.5/weather';
@@ -34,6 +42,14 @@ function chooseNewCity(city)
     .then(json => {
         UI_ELEMENTS.TAB_NOW.CITY_NAME.textContent = json.name;
         UI_ELEMENTS.TAB_NOW.CITY_TEMPERATURE.textContent = calculateTemperature(json.main.temp);
+        console.dir(json);
+
+        UI_ELEMENTS.TAB_DETAILS.TITLE.textContent = json.name;
+        UI_ELEMENTS.TAB_DETAILS.TEMPERATURE.textContent = calculateTemperature(json.main.temp);
+        UI_ELEMENTS.TAB_DETAILS.FEELS_LIKE.textContent = calculateTemperature(json.main.feels_like);
+        UI_ELEMENTS.TAB_DETAILS.WEATHER.textContent = json.weather[0].main;
+        UI_ELEMENTS.TAB_DETAILS.SUNRISE.textContent = convertUnixToDate(json.sys.sunrise, json.timezone);
+        UI_ELEMENTS.TAB_DETAILS.SUNSET.textContent = convertUnixToDate(json.sys.sunset, json.timezone);
     })
     .catch(error => alert(error.message));
 }

@@ -36,6 +36,14 @@ export const UI_ELEMENTS = {
         CITY_NAME: document.querySelector('footer').firstElementChild,
         CITY_TEMPERATURE: document.querySelector('.degrees-text'),
         ADD_ICON: document.querySelector('.heart-icon'),
+    },
+    TAB_DETAILS: {
+        TITLE: document.querySelector('.title-details'),
+        TEMPERATURE: document.querySelectorAll('.details-list li')[0].querySelectorAll('span')[1],
+        FEELS_LIKE: document.querySelectorAll('.details-list li')[1].querySelectorAll('span')[1],
+        WEATHER: document.querySelectorAll('.details-list li')[2].querySelectorAll('span')[1],
+        SUNRISE: document.querySelectorAll('.details-list li')[3].querySelectorAll('span')[1],
+        SUNSET: document.querySelectorAll('.details-list li')[4].querySelectorAll('span')[1],
     }
 }
 
