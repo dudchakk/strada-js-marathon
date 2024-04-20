@@ -44,6 +44,9 @@ export const UI_ELEMENTS = {
         WEATHER: document.querySelectorAll('.details-list li')[2].querySelectorAll('span')[1],
         SUNRISE: document.querySelectorAll('.details-list li')[3].querySelectorAll('span')[1],
         SUNSET: document.querySelectorAll('.details-list li')[4].querySelectorAll('span')[1],
+    },
+    TAB_FORECAST: {
+        TITLE: document.querySelectorAll('.title-details')[1],
     }
 }
 

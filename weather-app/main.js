@@ -1,4 +1,15 @@
 import { UI_ELEMENTS, favoriteCities } from "./view.js";
+// import {format} from "./node_modules/date-fns";
+
+// const SERVER = {
+// 	URL: {
+// 		WEATHER: 'https://api.openweathermap.org/data/2.5/weather',
+// 		FORECAST: 'https://api.openweathermap.org/data/2.5/forecast',
+// 	},
+// 	API_KEY: 'f660a2fb1e4bad108d6160b7f58c555f',
+// 	STORAGE_KEY: 'forecast_store',
+// 	ICON: 'https://openweathermap.org/img/wn/',
+// };
 
 // showTabDetails();
 
@@ -25,11 +36,18 @@ function convertUnixToDate(timestamp, shift)
     return hours.slice(-2) + ':' + minutes.slice(-2);
 }
 
+function formatDate(timestamp, shift)
+{
+    var date = new Date((timestamp + shift) * 1000);
+    const month = date.toLocaleString('default', { month: 'long' });
+    return date.getDay() + " " + month;
+}
+
 function chooseNewCity(city)
 {
-    const serverUrl1 = 'http://api.openweathermap.org/data/2.5/weather';
+    const serverUrlWeather = 'http://api.openweathermap.org/data/2.5/weather';
     const apiKey = 'f660a2fb1e4bad108d6160b7f58c555f';
-    let url = `${serverUrl1}?q=${city}&appid=${apiKey}`;
+    let url = `${serverUrlWeather}?q=${city}&appid=${apiKey}`;
 
     fetch(url)
     .then(response => {
@@ -50,6 +68,56 @@ function chooseNewCity(city)
         UI_ELEMENTS.TAB_DETAILS.WEATHER.textContent = json.weather[0].main;
         UI_ELEMENTS.TAB_DETAILS.SUNRISE.textContent = convertUnixToDate(json.sys.sunrise, json.timezone);
         UI_ELEMENTS.TAB_DETAILS.SUNSET.textContent = convertUnixToDate(json.sys.sunset, json.timezone);
+    })
+    .catch(error => alert(error.message));
+}
+
+export function showForecast()
+{
+    let cityName = UI_ELEMENTS.TAB_NOW.CITY_NAME.textContent;
+    UI_ELEMENTS.TAB_FORECAST.TITLE.textContent = cityName;
+    UI_ELEMENTS.TAB_FORECAST.TITLE.nextElementSibling.remove();
+
+    const serverUrlForecast = 'http://api.openweathermap.org/data/2.5/forecast';
+    const apiKey = 'f660a2fb1e4bad108d6160b7f58c555f';
+    let url = `${serverUrlForecast}?q=${cityName}&appid=${apiKey}`;
+
+    fetch(url)
+    .then(response => {
+        if(!response.ok) {
+            throw new Error(`Error ${response.status}: ${response.statusText}`);
+        }
+        return response.json();
+    })
+    .then(json => {
+        console.dir(json);
+        let timezone = json.city.timezone;
+        json.list.forEach(element => {
+            UI_ELEMENTS.TAB_FORECAST.TITLE.insertAdjacentHTML('afterend',
+            `<li class="forecast-container">
+                <span class="forecast-date">${formatDate(element.dt, timezone)}</span>
+                <span class="forecast-time">${convertUnixToDate(element.dt, timezone)}</span>
+                <div class="forecast-details">
+                    <div>
+                        <span>Temperature:</span>
+                        <span class="degrees-text-span">${calculateTemperature(element.main.temp)}</span>
+                        <span class="degree-img-container">
+                            <img src="images/degree.svg" alt="degree" class="degree-img">
+                        </span>
+                    </div>
+                    <div>
+                        <span>Feels like:</span>
+                        <span class="degrees-text-span">${calculateTemperature(element.main.feels_like)}</span>
+                        <span class="degree-img-container">
+                            <img src="images/degree.svg" alt="degree" class="degree-img">
+                        </span>
+                    </div>
+                </div>
+                <span class="forecast-weather">${element.weather[0].main}</span>
+                <img src="images/rain.svg" alt="rain" class="forecast-icon">
+            </li>`
+        )
+        });
     })
     .catch(error => alert(error.message));
 }
@@ -154,4 +222,6 @@ export function showTabForecast()
     else {
         UI_ELEMENTS.TABS.DETAILS.classList.add('remove-tab');
     }
+
+    showForecast();
 }
