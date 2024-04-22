@@ -1,6 +1,6 @@
 import { UI_ELEMENTS, favoriteCities } from "./view.js";
 // import {format} from "./node_modules/date-fns";
-import moment from 'moment';
+// import moment from 'moment';
 
 // const SERVER = {
 // 	URL: {
@@ -122,6 +122,7 @@ export function showForecast()
     })
     .catch(error => alert(error.message));
 }
+// moment(element.dt_txt).format("MMM Do")
 
 export function chooseCityFromFavorites(event)
 {

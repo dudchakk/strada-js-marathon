@@ -68,7 +68,6 @@
 
 .container-locations {
     width: 50%;
-    overflow: hidden;
 }
 
 .added-locations-container {
@@ -83,6 +82,12 @@
     left: 18px;
 }
 
+.locations-list-container {
+    height: calc(100% - 68px);
+    width: 100%;
+    overflow: scroll;
+}
+
 .locations-list {
     padding-left: 18px;
     padding-top: 35px;
@@ -92,10 +97,19 @@ li {
     margin-bottom: 14px;
 }
 
+.locations-list li:hover {
+    opacity: 0.9;
+}
+
+.locations-list li:hover > img {
+    display: inline-block;
+}
+
 .close-icon {
     height: 15px;
     margin-left: 5px;
     transform: rotate(45deg);
+    display: none;
 }
 
 .tabs-container {
