@@ -194,8 +194,8 @@ li {
     top: 18%;
 }
 
-.cloud-img {
-    height: 59px;
+.icon-now {
+    height: 90px;
     position: absolute;
     left: calc(50% - 39px);
     top: calc(50% - 29.5px);
@@ -214,8 +214,9 @@ li {
 }
 
 .heart-icon {
-    height: 22px;
+    height: 25px;
     transform: all 0.4s ease;
+    opacity: 0.9;
 }
 
 .heart-icon:active {
@@ -286,7 +287,7 @@ li {
 
 .forecast-icon {
     position: absolute;
-    right: 13px;
-    bottom: 9px;
-    height: 31px;
+    right: 11px;
+    bottom: 3px;
+    height: 40px;
 }

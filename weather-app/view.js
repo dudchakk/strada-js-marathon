@@ -36,6 +36,7 @@ export const UI_ELEMENTS = {
         CITY_NAME: document.querySelector('footer').firstElementChild,
         CITY_TEMPERATURE: document.querySelector('.degrees-text'),
         ADD_ICON: document.querySelector('.heart-icon'),
+        WEATHER_ICON: document.querySelector('.icon-now'),
     },
     TAB_DETAILS: {
         TITLE: document.querySelector('.title-details'),
@@ -47,14 +48,15 @@ export const UI_ELEMENTS = {
     },
     TAB_FORECAST: {
         TITLE: document.querySelectorAll('.title-details')[1],
+        LIST: document.querySelectorAll('.title-details')[1].nextElementSibling,
     }
 }
 
 export let favoriteCities = [
-    "Amur",
-    "Samara",
-    "Bali",
-    "Dane",
-    "Kilo",
-    "Nur-Sultan"
+    "London",
+    "Kyiv",
+    "Madrid",
+    "Rome",
+    "Berlin",
+    "Rio de Janeiro"
 ];
