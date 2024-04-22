@@ -13,7 +13,7 @@ import moment from 'moment';
 // };
 
 // showTabDetails();
-
+піся 
 export function inputNewCity(event)
 {
     let city = UI_ELEMENTS.FORM.input.value;
