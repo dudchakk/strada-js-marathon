@@ -1,5 +1,6 @@
 import { UI_ELEMENTS, favoriteCities } from "./view.js";
 // import {format} from "./node_modules/date-fns";
+import moment from 'moment';
 
 // const SERVER = {
 // 	URL: {
@@ -38,7 +39,7 @@ function convertUnixToDate(timestamp, shift)
 
 function formatDate(timestamp, shift)
 {
-    var date = new Date((timestamp + shift) * 1000);
+    var date = new Date((timestamp) * 1000);
     const month = date.toLocaleString('default', { month: 'long' });
     return date.getDay() + " " + month;
 }
@@ -95,7 +96,7 @@ export function showForecast()
         json.list.forEach(element => {
             UI_ELEMENTS.TAB_FORECAST.TITLE.insertAdjacentHTML('afterend',
             `<li class="forecast-container">
-                <span class="forecast-date">${formatDate(element.dt, timezone)}</span>
+                <span class="forecast-date">${moment(element.dt_txt).format("MMM Do")}</span>
                 <span class="forecast-time">${convertUnixToDate(element.dt, timezone)}</span>
                 <div class="forecast-details">
                     <div>
