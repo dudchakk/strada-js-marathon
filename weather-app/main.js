@@ -13,7 +13,7 @@ import { UI_ELEMENTS, favoriteCities } from "./view.js";
 // };
 
 // showTabDetails();
-
+піся 
 export function inputNewCity(event)
 {
     let city = UI_ELEMENTS.FORM.input.value;
