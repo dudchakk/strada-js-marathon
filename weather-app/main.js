@@ -1,17 +1,5 @@
-import { UI_ELEMENTS, favoriteCities } from "./view.js";
-// import moment from 'moment';
+import { UI_ELEMENTS, SERVER, FAVORITE_CITIES } from "./view.js";
 
-// const SERVER = {
-// 	URL: {
-// 		WEATHER: 'https://api.openweathermap.org/data/2.5/weather',
-// 		FORECAST: 'https://api.openweathermap.org/data/2.5/forecast',
-// 	},
-// 	API_KEY: 'f660a2fb1e4bad108d6160b7f58c555f',
-// 	STORAGE_KEY: 'forecast_store',
-// 	ICON: 'https://openweathermap.org/img/wn/',
-// };
-
-const iconsUrl = 'https://openweathermap.org/img/wn/';
 
 export function inputNewCity(event)
 {
@@ -23,6 +11,39 @@ export function inputNewCity(event)
     chooseNewCity(city);
 }
 
+function chooseNewCity(cityName)
+{
+    let url = `${SERVER.WEATHER}?q=${cityName}&appid=${SERVER.API_KEY}`;
+
+    fetch(url)
+    .then(response => {
+        if(!response.ok) {
+            throw new Error(`Error ${response.status}: ${response.statusText}`);
+        }
+        return response.json();
+    })
+    .then(({
+        name,
+        main: {temp, feels_like},
+        sys: {sunrise, sunset},
+        timezone,
+        weather: [{main: weather_info, icon}]
+        } = {}) => {
+        UI_ELEMENTS.TAB_NOW.CITY_NAME.textContent = name;
+        UI_ELEMENTS.TAB_NOW.CITY_TEMPERATURE.textContent = calculateTemperature(temp);
+        UI_ELEMENTS.TAB_NOW.WEATHER_ICON.src = `${SERVER.ICON + icon}@2x.png`;
+        // console.dir(json);
+
+        UI_ELEMENTS.TAB_DETAILS.TITLE.textContent = name;
+        UI_ELEMENTS.TAB_DETAILS.TEMPERATURE.textContent = calculateTemperature(temp);
+        UI_ELEMENTS.TAB_DETAILS.FEELS_LIKE.textContent = calculateTemperature(feels_like);
+        UI_ELEMENTS.TAB_DETAILS.WEATHER.textContent = weather_info;
+        UI_ELEMENTS.TAB_DETAILS.SUNRISE.textContent = moment(convertUnixToDate(sunrise, timezone)).format("HH:mm");
+        UI_ELEMENTS.TAB_DETAILS.SUNSET.textContent = moment(convertUnixToDate(sunset, timezone)).format("HH:mm");
+    })
+    .catch(error => alert(error.message));
+}
+
 function calculateTemperature(temp_k)
 {
     return Math.round(temp_k - 273.15);
@@ -30,57 +51,14 @@ function calculateTemperature(temp_k)
 
 function convertUnixToDate(timestamp, shift)
 {
-    var date = new Date((timestamp + shift) * 1000);
-    var hours = "0" + date.getHours();
-    var minutes = "0" + date.getMinutes();
-    return hours.slice(-2) + ':' + minutes.slice(-2);
-}
-
-function formatDate(timestamp, shift)
-{
-    var date = new Date((timestamp) * 1000);
-    const month = date.toLocaleString('default', { month: 'long' });
-    return date.getDay() + " " + month;
-}
-
-function chooseNewCity(city)
-{
-    const serverUrlWeather = 'http://api.openweathermap.org/data/2.5/weather';
-    const apiKey = 'f660a2fb1e4bad108d6160b7f58c555f';
-    let url = `${serverUrlWeather}?q=${city}&appid=${apiKey}`;
-
-    fetch(url)
-    .then(response => {
-        if(!response.ok) {
-            throw new Error(`Error ${response.status}: ${response.statusText}`);
-        }
-        return response.json();
-    })
-    // .then(json => console.log(json));
-    .then(json => {
-        UI_ELEMENTS.TAB_NOW.CITY_NAME.textContent = json.name;
-        UI_ELEMENTS.TAB_NOW.CITY_TEMPERATURE.textContent = calculateTemperature(json.main.temp);
-        UI_ELEMENTS.TAB_NOW.WEATHER_ICON.src = `${iconsUrl + json.weather[0].icon}@2x.png`;
-        console.dir(json);
-
-        UI_ELEMENTS.TAB_DETAILS.TITLE.textContent = json.name;
-        UI_ELEMENTS.TAB_DETAILS.TEMPERATURE.textContent = calculateTemperature(json.main.temp);
-        UI_ELEMENTS.TAB_DETAILS.FEELS_LIKE.textContent = calculateTemperature(json.main.feels_like);
-        UI_ELEMENTS.TAB_DETAILS.WEATHER.textContent = json.weather[0].main;
-        UI_ELEMENTS.TAB_DETAILS.SUNRISE.textContent = convertUnixToDate(json.sys.sunrise, json.timezone);
-        UI_ELEMENTS.TAB_DETAILS.SUNSET.textContent = convertUnixToDate(json.sys.sunset, json.timezone);
-    })
-    .catch(error => alert(error.message));
+    return new Date((timestamp + shift) * 1000);
 }
 
 export function showForecast()
 {
     let cityName = UI_ELEMENTS.TAB_NOW.CITY_NAME.textContent;
-    UI_ELEMENTS.TAB_FORECAST.TITLE.textContent = cityName;
 
-    const serverUrlForecast = 'http://api.openweathermap.org/data/2.5/forecast';
-    const apiKey = 'f660a2fb1e4bad108d6160b7f58c555f';
-    let url = `${serverUrlForecast}?q=${cityName}&appid=${apiKey}`;
+    let url = `${SERVER.FORECAST}?q=${cityName}&appid=${SERVER.API_KEY}`;
 
     fetch(url)
     .then(response => {
@@ -89,31 +67,40 @@ export function showForecast()
         }
         return response.json();
     })
-    .then(json => {
-        console.dir(json);
-        json.list.forEach(element => {
+    .then(({
+        city: {name: city_name},
+        list,
+    } = {}) => {
+        // console.dir(json);
+        UI_ELEMENTS.TAB_FORECAST.TITLE.textContent = city_name;
+        
+        list.forEach(({
+            dt_txt: date_text,
+            main: {temp, feels_like},
+            weather: [{main: weather_info, icon}]
+        } = {}) => {
             UI_ELEMENTS.TAB_FORECAST.LIST.insertAdjacentHTML('beforeend',
             `<li class="forecast-container">
-                <span class="forecast-date">${moment(element.dt_txt).format("MMM Do")}</span>
-                <span class="forecast-time">${moment(element.dt_txt).format("HH:mm")}</span>
+                <span class="forecast-date">${moment(date_text).format("MMM Do")}</span>
+                <span class="forecast-time">${moment(date_text).format("HH:mm")}</span>
                 <div class="forecast-details">
                     <div>
                         <span>Temperature:</span>
-                        <span class="degrees-text-span">${calculateTemperature(element.main.temp)}</span>
+                        <span class="degrees-text-span">${calculateTemperature(temp)}</span>
                         <span class="degree-img-container">
                             <img src="images/degree.svg" alt="degree" class="degree-img">
                         </span>
                     </div>
                     <div>
                         <span>Feels like:</span>
-                        <span class="degrees-text-span">${calculateTemperature(element.main.feels_like)}</span>
+                        <span class="degrees-text-span">${calculateTemperature(feels_like)}</span>
                         <span class="degree-img-container">
                             <img src="images/degree.svg" alt="degree" class="degree-img">
                         </span>
                     </div>
                 </div>
-                <span class="forecast-weather">${element.weather[0].main}</span>
-                <img src="${iconsUrl + element.weather[0].icon}@2x.png" alt="rain" class="forecast-icon">
+                <span class="forecast-weather">${weather_info}</span>
+                <img src="${SERVER.ICON + icon}@2x.png" alt="rain" class="forecast-icon">
             </li>`
         )
         });
@@ -133,23 +120,17 @@ export function addFavoriteCity(event)
         event.currentTarget.src = "images/heart2.png";
 
         let cityName = UI_ELEMENTS.TAB_NOW.CITY_NAME.textContent;
-        if(favoriteCities.includes(cityName)) {
+        if(FAVORITE_CITIES.includes(cityName)) {
             throw new SyntaxError("City is already in the list");
         }
-        favoriteCities.push(cityName);
+        FAVORITE_CITIES.push(cityName);
 
-        let listElement = document.createElement('li');
-        let span = document.createElement('span');
-        span.textContent = cityName;
-        let img = document.createElement('img');
-        img.src = "images/close-icon.svg";
-        img.alt = "close";
-        img.classList.add('close-icon');
-        
-        listElement.append(span);
-        listElement.append(img);
-
-        UI_ELEMENTS.FAVORITE_LOCATIONS.prepend(listElement);
+        UI_ELEMENTS.FAVORITE_LOCATIONS.insertAdjacentHTML('afterbegin', 
+        `<li>
+            <span>${cityName}</span>
+            <img src="images/close-icon.svg" alt="close" class="close-icon">
+        </li>`
+    );
     }
     catch(error) {
         if(error instanceof SyntaxError) {
@@ -164,7 +145,7 @@ export function addFavoriteCity(event)
 export function deleteCityFromFavorites(event)
 {
     let cityName = event.currentTarget.previousElementSibling.textContent;
-    favoriteCities.splice(favoriteCities.indexOf(cityName));
+    FAVORITE_CITIES.splice(FAVORITE_CITIES.indexOf(cityName));
     event.currentTarget.parentNode.remove();
 }
 
