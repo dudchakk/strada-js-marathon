@@ -1,5 +1,64 @@
-import { UI_ELEMENTS, SERVER, FAVORITE_CITIES } from "./view.js";
+import { FAVORITE_CITIES } from "./view.js";
 
+const SERVER = {
+    WEATHER:'http://api.openweathermap.org/data/2.5/weather',
+    FORECAST: 'http://api.openweathermap.org/data/2.5/forecast',
+    API_KEY: 'f660a2fb1e4bad108d6160b7f58c555f',
+    ICON: 'https://openweathermap.org/img/wn/',
+    // DATA: {
+    //     WEATHER: [],
+    //     FORECAST: [],
+    // }
+};
+
+const UI_ELEMENTS = {    
+    FORM: document.querySelector('form'),
+    FAVORITE_LOCATIONS: document.querySelector('.locations-list'),
+    BUTTONS: {
+        NOW: document.querySelector('#button-now'),
+        DETAILS: document.querySelector('#button-details'),
+        FORECAST: document.querySelector('#button-forecast'),
+    },
+    TABS: {
+        NOW: document.querySelector('.tab-now'),
+        DETAILS: document.querySelector('.tab-details'),
+        FORECAST: document.querySelector('.tab-forecast'),
+    },
+    TAB_NOW: {
+        CITY_NAME: document.querySelector('footer').firstElementChild,
+        CITY_TEMPERATURE: document.querySelector('.degrees-text'),
+        ADD_ICON: document.querySelector('.heart-icon'),
+        WEATHER_ICON: document.querySelector('.icon-now'),
+    },
+    TAB_DETAILS: {
+        TITLE: document.querySelector('.title-details'),
+        TEMPERATURE: document.querySelectorAll('.details-list li')[0].querySelectorAll('span')[1],
+        FEELS_LIKE: document.querySelectorAll('.details-list li')[1].querySelectorAll('span')[1],
+        WEATHER: document.querySelectorAll('.details-list li')[2].querySelectorAll('span')[1],
+        SUNRISE: document.querySelectorAll('.details-list li')[3].querySelectorAll('span')[1],
+        SUNSET: document.querySelectorAll('.details-list li')[4].querySelectorAll('span')[1],
+    },
+    TAB_FORECAST: {
+        TITLE: document.querySelectorAll('.title-details')[1],
+        LIST: document.querySelectorAll('.title-details')[1].nextElementSibling,
+    }
+};
+
+chooseCurrentCity();
+
+
+function chooseCurrentCity()
+{
+    let cityName;
+    if(localStorage.getItem('city_name')) {
+        cityName = localStorage.getItem('city_name');
+        chooseNewCity(cityName);
+    }
+    // else {
+    //     cityName = UI_ELEMENTS.TAB_NOW.CITY_NAME.textContent;
+    // }
+    // chooseNewCity(city);
+}
 
 export function inputNewCity(event)
 {
@@ -120,6 +179,7 @@ export function addFavoriteCity(event)
         event.currentTarget.src = "images/heart2.png";
 
         let cityName = UI_ELEMENTS.TAB_NOW.CITY_NAME.textContent;
+        localStorage.setItem('city_name', cityName);
         if(FAVORITE_CITIES.includes(cityName)) {
             throw new SyntaxError("City is already in the list");
         }
@@ -207,3 +267,6 @@ export function showTabForecast()
 
     showForecast();
 }
+
+
+alert(UI_ELEMENTS);

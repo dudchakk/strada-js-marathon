@@ -1,25 +1,4 @@
-import {showTabNow, showTabDetails, showTabForecast, 
-    inputNewCity, addFavoriteCity, chooseCityFromFavorites, deleteCityFromFavorites} from './main.js';
-
-document.querySelector('form').addEventListener('submit', inputNewCity);
-document.querySelector('.heart-icon').addEventListener('click', addFavoriteCity);
-
-document.querySelector('#button-now').addEventListener('click', showTabNow);
-document.querySelector('#button-details').addEventListener('click', showTabDetails);
-document.querySelector('#button-forecast').addEventListener('click', showTabForecast);
-
-for (let el of document.querySelectorAll('.locations-list li span'))
-{
-    el.addEventListener('click', chooseCityFromFavorites);
-}
-
-for (let el of document.querySelectorAll('.close-icon'))
-{
-    el.addEventListener('click', deleteCityFromFavorites);
-}
-
-
-export const UI_ELEMENTS = {    
+const UI_ELEMENTS = {    
     FORM: document.querySelector('form'),
     FAVORITE_LOCATIONS: document.querySelector('.locations-list'),
     BUTTONS: {
@@ -50,16 +29,20 @@ export const UI_ELEMENTS = {
         TITLE: document.querySelectorAll('.title-details')[1],
         LIST: document.querySelectorAll('.title-details')[1].nextElementSibling,
     }
-}
+};
 
-export const SERVER = {
+const SERVER = {
     WEATHER:'http://api.openweathermap.org/data/2.5/weather',
     FORECAST: 'http://api.openweathermap.org/data/2.5/forecast',
     API_KEY: 'f660a2fb1e4bad108d6160b7f58c555f',
     ICON: 'https://openweathermap.org/img/wn/',
+    // DATA: {
+    //     WEATHER: [],
+    //     FORECAST: [],
+    // }
 }
 
-export let FAVORITE_CITIES = [
+const FAVORITE_CITIES = [
     "London",
     "Kyiv",
     "Madrid",
@@ -67,3 +50,34 @@ export let FAVORITE_CITIES = [
     "Berlin",
     "Rio de Janeiro"
 ];
+
+export { UI_ELEMENTS, SERVER, FAVORITE_CITIES };
+
+
+import { 
+    showTabNow, showTabDetails, showTabForecast, 
+    inputNewCity, addFavoriteCity, chooseCityFromFavorites, 
+    deleteCityFromFavorites
+} from './main.js';
+
+document.querySelector('form').addEventListener('submit', inputNewCity);
+document.querySelector('.heart-icon').addEventListener('click', addFavoriteCity);
+
+document.querySelector('#button-now').addEventListener('click', showTabNow);
+document.querySelector('#button-details').addEventListener('click', showTabDetails);
+document.querySelector('#button-forecast').addEventListener('click', showTabForecast);
+
+for (let el of document.querySelectorAll('.locations-list li span'))
+{
+    el.addEventListener('click', chooseCityFromFavorites);
+}
+
+for (let el of document.querySelectorAll('.close-icon'))
+{
+    el.addEventListener('click', deleteCityFromFavorites);
+}
+
+
+
+// export let STORE = {}
+
