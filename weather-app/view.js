@@ -1,4 +1,4 @@
-const UI_ELEMENTS = {    
+export const UI_ELEMENTS = {    
     FORM: document.querySelector('form'),
     FAVORITE_LOCATIONS: document.querySelector('.locations-list'),
     BUTTONS: {
@@ -31,7 +31,7 @@ const UI_ELEMENTS = {
     }
 };
 
-const SERVER = {
+export const SERVER = {
     WEATHER:'http://api.openweathermap.org/data/2.5/weather',
     FORECAST: 'http://api.openweathermap.org/data/2.5/forecast',
     API_KEY: 'f660a2fb1e4bad108d6160b7f58c555f',
@@ -42,7 +42,7 @@ const SERVER = {
     // }
 }
 
-const FAVORITE_CITIES = [
+export const FAVORITE_CITIES = [
     "London",
     "Kyiv",
     "Madrid",
@@ -51,7 +51,6 @@ const FAVORITE_CITIES = [
     "Rio de Janeiro"
 ];
 
-export { UI_ELEMENTS, SERVER, FAVORITE_CITIES };
 
 
 import { 
@@ -76,6 +75,7 @@ for (let el of document.querySelectorAll('.close-icon'))
 {
     el.addEventListener('click', deleteCityFromFavorites);
 }
+
 
 
 
