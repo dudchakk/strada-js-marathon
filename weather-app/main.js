@@ -5,15 +5,6 @@ showInfo();
 
 function showInfo()
 {
-    if(localStorage.getItem('city_name')) {
-        let cityName = localStorage.getItem('city_name');
-        chooseNewCity(cityName);
-    }
-    else {
-        let cityName = UI_ELEMENTS.TAB_NOW.CITY_NAME.textContent;
-        chooseNewCity(cityName);
-    }
-
     if(localStorage.getItem('favorite_cities')) {
         FAVORITE_CITIES.length = 0;
         FAVORITE_CITIES.push(...localStorage.getItem('favorite_cities').split(','));
@@ -34,6 +25,17 @@ function showInfo()
     {
         el.addEventListener('click', chooseCityFromFavorites);
     }
+
+    if(localStorage.getItem('city_name')) {
+        let cityName = localStorage.getItem('city_name');
+        chooseNewCity(cityName);
+    }
+    else {
+        let cityName = UI_ELEMENTS.TAB_NOW.CITY_NAME.textContent;
+        chooseNewCity(cityName);
+    }
+
+    
 }
 
 export function inputNewCity(event)
@@ -49,6 +51,13 @@ export function inputNewCity(event)
 
 function chooseNewCity(cityName)
 {
+    if(FAVORITE_CITIES.includes(cityName)) {
+        UI_ELEMENTS.TAB_NOW.ADD_ICON.src = "images/heart2.png";
+    }
+    else {
+        UI_ELEMENTS.TAB_NOW.ADD_ICON.src = "images/heart1.png";
+    }
+
     let url = `${SERVER.WEATHER}?q=${cityName}&appid=${SERVER.API_KEY}`;
 
     fetch(url)
@@ -152,10 +161,10 @@ export function chooseCityFromFavorites(event)
     chooseNewCity(cityName);
 }
 
-export function addFavoriteCity(event)
+export function addFavoriteCity()
 {
     try {
-        event.currentTarget.src = "images/heart2.png";
+        UI_ELEMENTS.TAB_NOW.ADD_ICON.src = "images/heart2.png";
 
         let cityName = UI_ELEMENTS.TAB_NOW.CITY_NAME.textContent;
     
