@@ -36,22 +36,14 @@ export const SERVER = {
     FORECAST: 'http://api.openweathermap.org/data/2.5/forecast',
     API_KEY: 'f660a2fb1e4bad108d6160b7f58c555f',
     ICON: 'https://openweathermap.org/img/wn/',
-    // DATA: {
-    //     WEATHER: [],
-    //     FORECAST: [],
-    // }
 }
 
-export const FAVORITE_CITIES = [
+export let FAVORITE_CITIES = [
     "London",
     "Kyiv",
-    "Madrid",
-    "Rome",
     "Berlin",
     "Rio de Janeiro"
 ];
-
-
 
 import { 
     showTabNow, showTabDetails, showTabForecast, 
@@ -75,9 +67,3 @@ for (let el of document.querySelectorAll('.close-icon'))
 {
     el.addEventListener('click', deleteCityFromFavorites);
 }
-
-
-
-
-// export let STORE = {}
-
