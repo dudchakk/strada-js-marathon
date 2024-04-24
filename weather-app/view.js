@@ -47,12 +47,12 @@ export let FAVORITE_CITIES = [
 
 import { 
     showTabNow, showTabDetails, showTabForecast, 
-    inputNewCity, addFavoriteCity, chooseCityFromFavorites, 
+    inputNewCity, addCityToFavorites, chooseCityFromFavorites, 
     deleteCityFromFavorites
 } from './main.js';
 
 document.querySelector('form').addEventListener('submit', inputNewCity);
-document.querySelector('.heart-icon').addEventListener('click', addFavoriteCity);
+document.querySelector('.heart-icon').addEventListener('click', addCityToFavorites);
 
 document.querySelector('#button-now').addEventListener('click', showTabNow);
 document.querySelector('#button-details').addEventListener('click', showTabDetails);
