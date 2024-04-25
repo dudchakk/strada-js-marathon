@@ -38,12 +38,12 @@ export const SERVER = {
     ICON: 'https://openweathermap.org/img/wn/',
 }
 
-export let FAVORITE_CITIES = [
+export const FAVORITE_CITIES = new Set(
     "London",
     "Kyiv",
     "Berlin",
     "Rio de Janeiro"
-];
+);
 
 import { 
     showTabNow, showTabDetails, showTabForecast, 

@@ -6,9 +6,11 @@ showInfo();
 function showInfo()
 {
     if(localStorage.getItem('favorite_cities')) {
-        FAVORITE_CITIES.length = 0;
-        FAVORITE_CITIES.push(...localStorage.getItem('favorite_cities').split(','));
-        console.dir(FAVORITE_CITIES);
+        FAVORITE_CITIES.clear();
+        localStorage.getItem('favorite_cities').split(',')
+        .forEach(el => FAVORITE_CITIES.add(el));
+        
+        // console.dir(FAVORITE_CITIES);
     }
 
     UI_ELEMENTS.FAVORITE_LOCATIONS.innerHTML = "";
@@ -97,7 +99,7 @@ function showNOW({
     UI_ELEMENTS.TAB_NOW.CITY_TEMPERATURE.textContent = calculateTemperature(temp);
     UI_ELEMENTS.TAB_NOW.WEATHER_ICON.src = `${SERVER.ICON + icon}@2x.png`;
 
-    if(FAVORITE_CITIES.includes(city_name)) {
+    if(FAVORITE_CITIES.has(city_name)) {
         UI_ELEMENTS.TAB_NOW.ADD_ICON.src = "images/heart2.png";
     }
     else {
@@ -196,14 +198,14 @@ export function addCityToFavorites()
 
         let cityName = UI_ELEMENTS.TAB_NOW.CITY_NAME.textContent;
     
-        if(FAVORITE_CITIES.includes(cityName)) {
+        if(FAVORITE_CITIES.has(cityName)) {
             throw new SyntaxError("City is already in the list");
         }
-        FAVORITE_CITIES.unshift(cityName);
-        localStorage.setItem('favorite_cities', FAVORITE_CITIES);
+        FAVORITE_CITIES.add(cityName);
+        localStorage.setItem('favorite_cities', [...FAVORITE_CITIES]);
 
         let li = document.createElement('li');
-        li.insertAdjacentHTML('afterbegin', 
+        li.insertAdjacentHTML('beforeend', 
             `
             <span>${cityName}</span>
             <img src="images/close-icon.svg" alt="close" class="close-icon">
@@ -227,9 +229,9 @@ export function addCityToFavorites()
 export function deleteCityFromFavorites(event)
 {
     let cityName = event.currentTarget.previousElementSibling.textContent;
-    FAVORITE_CITIES.splice(FAVORITE_CITIES.indexOf(cityName), 1);
-    localStorage.setItem('favorite_cities', FAVORITE_CITIES);
-    console.dir(FAVORITE_CITIES);
+    FAVORITE_CITIES.delete(cityName);
+    localStorage.setItem('favorite_cities', [...FAVORITE_CITIES]);
+    // console.dir(FAVORITE_CITIES);
     event.currentTarget.parentNode.remove();
 
     if(UI_ELEMENTS.TAB_NOW.CITY_NAME.textContent == cityName) {
