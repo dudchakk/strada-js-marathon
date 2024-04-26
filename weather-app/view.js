@@ -38,12 +38,26 @@ export const SERVER = {
     ICON: 'https://openweathermap.org/img/wn/',
 }
 
-export const FAVORITE_CITIES = new Set(
-    "London",
-    "Kyiv",
-    "Berlin",
-    "Rio de Janeiro"
-);
+export const FAVORITE_CITIES = new Set();
+
+export const FAVORITE_CITY_NAMES = [];
+
+export function FavoriteCity(cityName)
+{
+    this.cityName = cityName;
+
+    this.element = document.createElement('li');
+
+    this.element.insertAdjacentHTML('beforeend', 
+        `
+        <span>${this.cityName}</span>
+        <img src="images/close-icon.svg" alt="close" class="close-icon">
+        `
+    );
+
+    this.element.querySelector('span').addEventListener('click', chooseCityFromFavorites);
+    this.element.querySelector('.close-icon').addEventListener('click', deleteCityFromFavorites);
+}
 
 import { 
     showTabNow, showTabDetails, showTabForecast, 

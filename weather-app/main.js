@@ -1,41 +1,36 @@
-import { FAVORITE_CITIES, UI_ELEMENTS, SERVER } from "./view.js";
+import { FAVORITE_CITIES, FAVORITE_CITY_NAMES, UI_ELEMENTS, SERVER, FavoriteCity } from "./view.js";
+import {
+    storeFavoriteCities, getFavoriteCities,
+    storeCityName, getCityName,
+    storeChosenTab, getChosenTab
+} from './store.js';
 
 
 showInfo();
 
 function showInfo()
 {
-    if(localStorage.getItem('favorite_cities')) {
+    if(getFavoriteCities()) {
+        FAVORITE_CITY_NAMES.length = 0;
         FAVORITE_CITIES.clear();
-        localStorage.getItem('favorite_cities').split(',')
-        .forEach(el => FAVORITE_CITIES.add(el));
+        
+        getFavoriteCities().split(',')
+        .forEach(el => {
+            FAVORITE_CITY_NAMES.push(el);
+            FAVORITE_CITIES.add(new FavoriteCity(el));
+        });
         
         // console.dir(FAVORITE_CITIES);
     }
 
     UI_ELEMENTS.FAVORITE_LOCATIONS.innerHTML = "";
     FAVORITE_CITIES.forEach(item => {
-        UI_ELEMENTS.FAVORITE_LOCATIONS.insertAdjacentHTML('beforeend', 
-        `<li>
-            <span>${item}</span>
-            <img src="images/close-icon.svg" alt="close" class="close-icon">
-        </li>`
-        );
+        UI_ELEMENTS.FAVORITE_LOCATIONS.prepend(item.element);
     });
 
-    for (let el of document.querySelectorAll('.locations-list li span'))
-    {
-        el.addEventListener('click', chooseCityFromFavorites);
-    }
 
-    for (let el of document.querySelectorAll('.close-icon'))
-    {
-        el.addEventListener('click', deleteCityFromFavorites);
-    }
-
-
-    if(localStorage.getItem('city_name')) {
-        let cityName = localStorage.getItem('city_name');
+    if(getCityName()) {
+        let cityName = getCityName();
         chooseNewCity(cityName);
     }
     else {
@@ -43,8 +38,8 @@ function showInfo()
         chooseNewCity(cityName);
     }
 
-    if(localStorage.getItem('chosen_tab')) {
-        switch(localStorage.getItem('chosen_tab')) {
+    if(getChosenTab()) {
+        switch(getChosenTab()) {
             case 'NOW':
                 break;
             case 'DETAILS':
@@ -99,7 +94,7 @@ function showNOW({
     UI_ELEMENTS.TAB_NOW.CITY_TEMPERATURE.textContent = calculateTemperature(temp);
     UI_ELEMENTS.TAB_NOW.WEATHER_ICON.src = `${SERVER.ICON + icon}@2x.png`;
 
-    if(FAVORITE_CITIES.has(city_name)) {
+    if(FAVORITE_CITY_NAMES.includes(city_name)) {
         UI_ELEMENTS.TAB_NOW.ADD_ICON.src = "images/heart2.png";
     }
     else {
@@ -179,14 +174,14 @@ export function inputNewCity(event)
     UI_ELEMENTS.FORM.input.value = "";
     UI_ELEMENTS.FORM.input.blur();
 
-    localStorage.setItem('city_name', cityName);
+    storeCityName(cityName);
     chooseNewCity(cityName);
 }
 
 export function chooseCityFromFavorites(event)
 {
     let cityName = event.currentTarget.textContent;
-    localStorage.setItem('city_name', cityName);
+    storeCityName(cityName);
 
     chooseNewCity(cityName);
 }
@@ -198,23 +193,16 @@ export function addCityToFavorites()
 
         let cityName = UI_ELEMENTS.TAB_NOW.CITY_NAME.textContent;
     
-        if(FAVORITE_CITIES.has(cityName)) {
+        if(FAVORITE_CITY_NAMES.includes(cityName)) {
             throw new SyntaxError("City is already in the list");
         }
-        FAVORITE_CITIES.add(cityName);
-        localStorage.setItem('favorite_cities', [...FAVORITE_CITIES]);
 
-        let li = document.createElement('li');
-        li.insertAdjacentHTML('beforeend', 
-            `
-            <span>${cityName}</span>
-            <img src="images/close-icon.svg" alt="close" class="close-icon">
-            `
-        );
-        li.querySelector('span').addEventListener('click', chooseCityFromFavorites);
-        li.querySelector('.close-icon').addEventListener('click', deleteCityFromFavorites);
+        FAVORITE_CITY_NAMES.push(cityName);
+        let newCity = new FavoriteCity(cityName);
+        FAVORITE_CITIES.add(newCity);
+        storeFavoriteCities(FAVORITE_CITY_NAMES);
 
-        UI_ELEMENTS.FAVORITE_LOCATIONS.prepend(li);
+        UI_ELEMENTS.FAVORITE_LOCATIONS.prepend(newCity.element);
     }
     catch(error) {
         if(error instanceof SyntaxError) {
@@ -229,9 +217,22 @@ export function addCityToFavorites()
 export function deleteCityFromFavorites(event)
 {
     let cityName = event.currentTarget.previousElementSibling.textContent;
-    FAVORITE_CITIES.delete(cityName);
-    localStorage.setItem('favorite_cities', [...FAVORITE_CITIES]);
+    
+    FAVORITE_CITY_NAMES.splice(
+        FAVORITE_CITY_NAMES.indexOf(cityName), 1
+    );
+    for (let el of FAVORITE_CITIES) {
+        if(el.cityName == cityName) {
+            FAVORITE_CITIES.delete(el);
+            break;
+        }
+    }
+
     // console.dir(FAVORITE_CITIES);
+    // console.dir(FAVORITE_CITY_NAMES);
+
+    storeFavoriteCities(FAVORITE_CITY_NAMES);
+
     event.currentTarget.parentNode.remove();
 
     if(UI_ELEMENTS.TAB_NOW.CITY_NAME.textContent == cityName) {
@@ -241,7 +242,7 @@ export function deleteCityFromFavorites(event)
 
 export function showTabNow()
 {
-    localStorage.setItem('chosen_tab', 'NOW');
+    storeChosenTab('NOW');
     UI_ELEMENTS.BUTTONS.NOW.className = '';
     UI_ELEMENTS.BUTTONS.DETAILS.className = '';
     UI_ELEMENTS.BUTTONS.FORECAST.className = '';
@@ -261,7 +262,7 @@ export function showTabNow()
 
 export function showTabDetails()
 {
-    localStorage.setItem('chosen_tab', 'DETAILS');
+    storeChosenTab('DETAILS');
     UI_ELEMENTS.BUTTONS.NOW.className = '';
     UI_ELEMENTS.BUTTONS.DETAILS.className = '';
     UI_ELEMENTS.BUTTONS.FORECAST.className = '';
@@ -281,7 +282,7 @@ export function showTabDetails()
 
 export function showTabForecast()
 {
-    localStorage.setItem('chosen_tab', 'FORECAST');
+    storeChosenTab('FORECAST');
     UI_ELEMENTS.BUTTONS.NOW.className = '';
     UI_ELEMENTS.BUTTONS.DETAILS.className = '';
     UI_ELEMENTS.BUTTONS.FORECAST.className = '';
