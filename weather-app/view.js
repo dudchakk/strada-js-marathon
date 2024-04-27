@@ -38,19 +38,15 @@ export const SERVER = {
     ICON: 'https://openweathermap.org/img/wn/',
 }
 
-export const FAVORITE_CITIES = new Set();
+export const FAVORITE_CITIES = new Map();
 
-export const FAVORITE_CITY_NAMES = [];
-
-export function FavoriteCity(cityName)
+export function FavoriteCityElement(cityName)
 {
-    this.cityName = cityName;
-
     this.element = document.createElement('li');
 
     this.element.insertAdjacentHTML('beforeend', 
         `
-        <span>${this.cityName}</span>
+        <span>${cityName}</span>
         <img src="images/close-icon.svg" alt="close" class="close-icon">
         `
     );

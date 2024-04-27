@@ -1,4 +1,4 @@
-import { FAVORITE_CITIES, FAVORITE_CITY_NAMES, UI_ELEMENTS, SERVER, FavoriteCity } from "./view.js";
+import { FAVORITE_CITIES, UI_ELEMENTS, SERVER, FavoriteCityElement } from "./view.js";
 import {
     storeFavoriteCities, getFavoriteCities,
     storeCityName, getCityName,
@@ -11,20 +11,18 @@ showInfo();
 function showInfo()
 {
     if(getFavoriteCities()) {
-        FAVORITE_CITY_NAMES.length = 0;
         FAVORITE_CITIES.clear();
         
         getFavoriteCities().split(',')
         .forEach(el => {
-            FAVORITE_CITY_NAMES.push(el);
-            FAVORITE_CITIES.add(new FavoriteCity(el));
+            FAVORITE_CITIES.set(el, new FavoriteCityElement(el));
         });
         
         // console.dir(FAVORITE_CITIES);
     }
 
     UI_ELEMENTS.FAVORITE_LOCATIONS.innerHTML = "";
-    FAVORITE_CITIES.forEach(item => {
+    FAVORITE_CITIES.values().forEach(item => {
         UI_ELEMENTS.FAVORITE_LOCATIONS.prepend(item.element);
     });
 
@@ -94,7 +92,7 @@ function showNOW({
     UI_ELEMENTS.TAB_NOW.CITY_TEMPERATURE.textContent = calculateTemperature(temp);
     UI_ELEMENTS.TAB_NOW.WEATHER_ICON.src = `${SERVER.ICON + icon}@2x.png`;
 
-    if(FAVORITE_CITY_NAMES.includes(city_name)) {
+    if(FAVORITE_CITIES.has(city_name)) {
         UI_ELEMENTS.TAB_NOW.ADD_ICON.src = "images/heart2.png";
     }
     else {
@@ -193,14 +191,13 @@ export function addCityToFavorites()
 
         let cityName = UI_ELEMENTS.TAB_NOW.CITY_NAME.textContent;
     
-        if(FAVORITE_CITY_NAMES.includes(cityName)) {
+        if(FAVORITE_CITIES.has(cityName)) {
             throw new SyntaxError("City is already in the list");
         }
 
-        FAVORITE_CITY_NAMES.push(cityName);
-        let newCity = new FavoriteCity(cityName);
-        FAVORITE_CITIES.add(newCity);
-        storeFavoriteCities(FAVORITE_CITY_NAMES);
+        let newCity = new FavoriteCityElement(cityName);
+        FAVORITE_CITIES.set(cityName, newCity);
+        storeFavoriteCities([...FAVORITE_CITIES.keys()]);
 
         UI_ELEMENTS.FAVORITE_LOCATIONS.prepend(newCity.element);
     }
@@ -218,20 +215,11 @@ export function deleteCityFromFavorites(event)
 {
     let cityName = event.currentTarget.previousElementSibling.textContent;
     
-    FAVORITE_CITY_NAMES.splice(
-        FAVORITE_CITY_NAMES.indexOf(cityName), 1
-    );
-    for (let el of FAVORITE_CITIES) {
-        if(el.cityName == cityName) {
-            FAVORITE_CITIES.delete(el);
-            break;
-        }
-    }
+    FAVORITE_CITIES.delete(cityName);
 
     // console.dir(FAVORITE_CITIES);
-    // console.dir(FAVORITE_CITY_NAMES);
 
-    storeFavoriteCities(FAVORITE_CITY_NAMES);
+    storeFavoriteCities([...FAVORITE_CITIES.keys()]);
 
     event.currentTarget.parentNode.remove();
 
