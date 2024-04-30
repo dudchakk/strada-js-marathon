@@ -20,13 +20,12 @@
 
 function sumInput()
 {
-    let arr = [], num, i = 0;
-
-    num = prompt("Enter a number");
+    let arr = [];
+    let num = prompt("Enter a number");
+    
     while(num != null && num != '' && isFinite(num))
     {
-        arr[i] = +num;
-        i++;
+        arr.push(+num);
         num = prompt("Enter a number");
     }
 
@@ -39,7 +38,7 @@ function sumInput()
     return sum;
 }
 
-// console.log(sumInput());
+console.log(sumInput());
 
 
 /*
@@ -279,11 +278,11 @@ function groupById(arr)
     return usersById;
 }
 
-let users = [
-    {id: 'іван', name: "Іван Іванко", age: 20},
-    {id: 'ганна', name: "Ганна Іванко", age: 24},
-    {id: 'петро', name: "Петро Петренко", age: 31},
-  ];
+// let users = [
+//     {id: 'іван', name: "Іван Іванко", age: 20},
+//     {id: 'ганна', name: "Ганна Іванко", age: 24},
+//     {id: 'петро', name: "Петро Петренко", age: 31},
+//   ];
   
-let usersById = groupById(users);
-console.log(usersById); 
+// let usersById = groupById(users);
+// console.log(usersById); 

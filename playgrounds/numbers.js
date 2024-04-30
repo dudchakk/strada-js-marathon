@@ -13,18 +13,18 @@
 
 function readNumber()
 {
-    let a;
-    do {
-        a = +prompt("Enter a number");
+    // let a = +prompt("Enter a number");
+    let a = prompt("Enter a number");
+
+    if(isNaN(a)) {
+        a = readNumber();
     }
-    while(isNaN(a))
 
-    if(a == undefined) return null;
-
-    return a;
+    if(a == null || a == '') return null;
+    return +a;
 }
 
-// console.log(readNumber());
+console.log(readNumber());
 
 
 /* */
