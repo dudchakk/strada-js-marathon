@@ -1,32 +1,38 @@
-import {formHigh, formLow, contHigh, contLow} from './view.js';
+import {UI_ELEMENTS, ICON_SRC} from './view.js';
+// import { format } from "date-fns";
+
+
+// function addDeadline()
+// {
+//     let dateStr = prompt("Enter deadline:", "dd-mm-yyyy");
+//     // alert(1);
+//     alert(`Deadline: ${format(dateStr, 'do MMM y')}`);
+// }
 
 function addNewTask(form)
 {
     try {
-        if(form.input.value == "")
+        if(form.input.value == "") {
             throw new SyntaxError("Task can't be empty");
+        }
         
+        // addDeadline();
+
         let container = document.createElement('div');
         container.classList.add('task-cont');
-
-        let ellipse = document.createElement('img');
-        ellipse.src = "images/Ellipse.svg";
-        ellipse.alt = "ellipse icon";
-        ellipse.classList.add('ellipse-icon-image');
-        ellipse.addEventListener('click', changeTaskStatus);
-        container.append(ellipse);
-
-        let paragraph = document.createElement('p');
-        paragraph.textContent = form.input.value;
-        paragraph.classList.add('task-text');
-        container.append(paragraph);
-
-        let close = document.createElement('img');
-        close.src = "images/close-icon.svg";
-        close.alt = "close icon";
-        close.classList.add('close-icon-image');
-        close.addEventListener('click', deleteTask);
-        container.append(close);
+        container.innerHTML = `
+            <div class="img-cont-done">
+                <img src=${ICON_SRC.ELLIPSE} alt="ellipse icon" class="ellipse">
+                <img src=${ICON_SRC.GRAY_ELLIPSE} alt="ellipse icon" class="gray-ellipse hide">
+            </div>
+            <p class="task-text">
+                ${form.input.value}
+            </p>
+            <img src=${ICON_SRC.CLOSE} alt="close icon" class="close-icon-image">
+        `;
+        
+        container.querySelectorAll('img')[0].addEventListener('click', changeTaskStatus);
+        container.querySelectorAll('img')[2].addEventListener('click', deleteTask);
 
         return container;
     }
@@ -40,15 +46,16 @@ function addNewTask(form)
     }
 }
 
-export function addNewTaskHigh(event)
+function addNewTaskHigh(event)
 {
     try {
-        let container = addNewTask(formHigh);
+        UI_ELEMENTS.HIGH.CONTAINER.append(
+            addNewTask(UI_ELEMENTS.HIGH.FORM)
+        );
         
-        contHigh.append(container);
         event.preventDefault();
-        formHigh.input.value = "";
-        formHigh.input.blur();
+        UI_ELEMENTS.HIGH.FORM.input.value = "";
+        UI_ELEMENTS.HIGH.FORM.input.blur();
     }
     catch(err) {
         if (err instanceof SyntaxError) 
@@ -59,15 +66,16 @@ export function addNewTaskHigh(event)
     }
 }
 
-export function addNewTaskLow(event)
+function addNewTaskLow(event)
 {
     try {
-        let container = addNewTask(formLow);
+        UI_ELEMENTS.LOW.CONTAINER.append(
+            addNewTask(UI_ELEMENTS.LOW.FORM)
+        );
         
-        contLow.append(container);
         event.preventDefault();
-        formLow.input.value = "";
-        formLow.input.blur();
+        UI_ELEMENTS.LOW.FORM.input.value = "";
+        UI_ELEMENTS.LOW.FORM.input.blur();
     }
     catch(err) {
         if (err instanceof SyntaxError) 
@@ -78,38 +86,37 @@ export function addNewTaskLow(event)
     }
 }
 
-export function deleteTask(event)
+function deleteTask(event)
 {
     event.currentTarget.parentNode.remove();
 }
 
-export function changeTaskStatus(event)
+function changeTaskStatus(event)
 {
-    if (event.currentTarget.classList.contains('ellipse-image-done')) 
-    {
-        event.currentTarget.parentNode.parentNode.classList.remove('task-cont-done');
+    let ellipse = event.currentTarget;
 
-        event.currentTarget.parentNode.parentNode.prepend(event.currentTarget);
-        event.currentTarget.classList.remove('ellipse-image-done');
-        
-        event.currentTarget.nextElementSibling.firstChild.remove();
-        event.currentTarget.nextElementSibling.remove();
-    }
-    else 
+    if (ellipse.nextElementSibling.classList.contains('hide')) 
     {
-        event.currentTarget.parentNode.classList.add('task-cont-done');
-        
-        let imgContainer = document.createElement('div');
-        imgContainer.classList.add('img-cont-done');
-        event.currentTarget.parentNode.prepend(imgContainer);
-        
-        event.currentTarget.classList.add('ellipse-image-done');
-        imgContainer.append(event.currentTarget);
-        
-        let grayEllipse = document.createElement('img');
-        grayEllipse.src = "images/Ellipse-gray.svg";
-        grayEllipse.alt = "gray ellipse";
-        grayEllipse.classList.add('ellipse-icon-image', 'gray-ellipse');
-        imgContainer.append(grayEllipse);
+        ellipse.parentNode.parentNode.classList.add('task-cont-done');
+        ellipse.nextElementSibling.classList.remove('hide');
     }
+    else {
+        
+        ellipse.parentNode.parentNode.classList.remove('task-cont-done');
+        ellipse.nextElementSibling.classList.add('hide');
+    }
+}
+
+
+UI_ELEMENTS.HIGH.FORM.addEventListener('submit', addNewTaskHigh);
+UI_ELEMENTS.LOW.FORM.addEventListener('submit', addNewTaskLow);
+
+for(let el of document.querySelectorAll('.close-icon-image'))
+{
+    el.addEventListener('click', deleteTask);
+}
+
+for(let el of document.querySelectorAll('.ellipse'))
+{
+    el.addEventListener('click', changeTaskStatus);
 }

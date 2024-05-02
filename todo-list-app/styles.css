@@ -60,9 +60,12 @@
     margin-bottom: 10px;
 }
 
-.ellipse-icon-image {
+.ellipse {
     width: 21px;
     height: 21px;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .task-text {
@@ -86,12 +89,6 @@
     position: relative;
 }
 
-.ellipse-image-done {
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
 .gray-ellipse {
     position: absolute;
     top: 3px;
@@ -99,4 +96,8 @@
     width: 15px;
     height: 15px; 
     pointer-events: none;
+}
+
+.hide {
+    display: none;
 }
