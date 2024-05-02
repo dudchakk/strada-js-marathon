@@ -1,13 +1,12 @@
 import {UI_ELEMENTS, ICON_SRC} from './view.js';
-// import { format } from "date-fns";
+import { format } from "date-fns";
 
 
-// function addDeadline()
-// {
-//     let dateStr = prompt("Enter deadline:", "dd-mm-yyyy");
-//     // alert(1);
-//     alert(`Deadline: ${format(dateStr, 'do MMM y')}`);
-// }
+function addDeadline()
+{
+    let dateStr = prompt("Enter deadline:", "dd-mm-yyyy");
+    alert(`Deadline: ${format(dateStr, 'do MMM yyyy')}`);
+}
 
 function addNewTask(form)
 {
@@ -16,7 +15,7 @@ function addNewTask(form)
             throw new SyntaxError("Task can't be empty");
         }
         
-        // addDeadline();
+        addDeadline();
 
         let container = document.createElement('div');
         container.classList.add('task-cont');
@@ -37,12 +36,12 @@ function addNewTask(form)
         return container;
     }
     catch(err) {
-        if (err instanceof SyntaxError) 
-        {
+        // if (err instanceof SyntaxError) 
+        // {
             alert(err.message + "!");
             throw new SyntaxError("Trying to create an empty task");
-        }
-        else throw err;
+        // }
+        // else throw err;
     }
 }
 
@@ -58,11 +57,11 @@ function addNewTaskHigh(event)
         UI_ELEMENTS.HIGH.FORM.input.blur();
     }
     catch(err) {
-        if (err instanceof SyntaxError) 
-        {
+        // if (err instanceof SyntaxError) 
+        // {
             return;
-        }
-        else throw err;
+        // }
+        // else throw err;
     }
 }
 
