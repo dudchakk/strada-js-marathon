@@ -1,6 +1,4 @@
 node_modules
-rostyks-calculator
-rostyks-weather-react
-rostyk-weather
 dist
 .parcel-cache
+npm-test
