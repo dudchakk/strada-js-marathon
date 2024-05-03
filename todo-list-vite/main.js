@@ -45,7 +45,7 @@ function addNewTask(form)
     }
 }
 
-function addNewTaskHigh(event)
+export function addNewTaskHigh(event)
 {
     try {
         UI_ELEMENTS.HIGH.CONTAINER.append(
@@ -65,7 +65,7 @@ function addNewTaskHigh(event)
     }
 }
 
-function addNewTaskLow(event)
+export function addNewTaskLow(event)
 {
     try {
         UI_ELEMENTS.LOW.CONTAINER.append(
@@ -85,12 +85,12 @@ function addNewTaskLow(event)
     }
 }
 
-function deleteTask(event)
+export function deleteTask(event)
 {
     event.currentTarget.parentNode.remove();
 }
 
-function changeTaskStatus(event)
+export function changeTaskStatus(event)
 {
     let ellipse = event.currentTarget;
 
@@ -104,18 +104,4 @@ function changeTaskStatus(event)
         ellipse.parentNode.parentNode.classList.remove('task-cont-done');
         ellipse.nextElementSibling.classList.add('hide');
     }
-}
-
-
-UI_ELEMENTS.HIGH.FORM.addEventListener('submit', addNewTaskHigh);
-UI_ELEMENTS.LOW.FORM.addEventListener('submit', addNewTaskLow);
-
-for(let el of document.querySelectorAll('.close-icon-image'))
-{
-    el.addEventListener('click', deleteTask);
-}
-
-for(let el of document.querySelectorAll('.ellipse'))
-{
-    el.addEventListener('click', changeTaskStatus);
 }
