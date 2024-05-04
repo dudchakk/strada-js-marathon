@@ -1,0 +1,293 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 28.13px;
+    list-style-type: none;
+}
+
+.main-container {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+}
+
+.content-container {
+    width: 621px;
+    height: 462px;
+    border: 1px solid black;
+    margin: auto;
+    display: flex;
+}
+
+.second-content-container {
+    width: 600px;
+    height: 435px;
+    border: 1px solid black;
+    margin: auto;
+}
+
+.search-container {
+    height: 45px;
+    width: 100%;
+    border-bottom: 1px solid black;
+    display: flex;
+}
+
+.input {
+    border: none;
+    padding-left: 10px;
+    height: 100%;
+    width: 100%;
+    font-size: 18px;
+}
+
+.search-button-container {
+    width: 30px;
+    margin-right: 10px;
+    display: flex;
+}
+
+.search-icon {
+    height: 30px;
+    margin: auto;
+}
+
+.weather-content-container {
+    display: flex;
+    height: 390px;
+}
+
+.container-weather {
+    width: 50%;
+    border-right: 1px solid black;
+}
+
+.container-locations {
+    width: 50%;
+}
+
+.added-locations-container {
+    height: 68px;
+    border-bottom: 1px solid black;
+    position: relative;
+}
+
+.added-locations-text {
+    position: absolute;
+    bottom: 7px;
+    left: 18px;
+}
+
+.locations-list-container {
+    height: calc(100% - 68px);
+    width: 100%;
+    overflow: scroll;
+}
+
+.locations-list {
+    padding-left: 18px;
+    padding-top: 35px;
+}
+
+li {
+    margin-bottom: 14px;
+}
+
+.locations-list li:hover {
+    opacity: 0.9;
+}
+
+.locations-list li:hover > img {
+    display: inline-block;
+}
+
+.close-icon {
+    height: 15px;
+    margin-left: 5px;
+    transform: rotate(45deg);
+    display: none;
+}
+
+.tabs-container {
+    height: 345px;
+    width: 100%;
+    border-bottom: 1px solid black;
+}
+
+.details-container {
+    height: 44px;
+    width: 100%;
+    display: flex;
+    z-index: 1;
+}
+
+.black-tab {
+    width: 100px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    line-height: 44px;
+    font-size: 18px;
+    border: 0 1px solid black;
+    transition: all 0.5s ease;
+}
+
+.white-tab {
+    width: 100px;
+    text-align: center;
+    line-height: 44px;
+    font-size: 18px;
+}
+.white-tab:active {
+    transform: scale(0.95);
+    /* background-color: aqua; */
+}
+
+.border-left {
+    border-left: 1px solid black;
+}
+
+.tab {
+    width: 100%;
+    height: 100%;
+}
+
+.tab-now {
+    position: relative;
+}
+
+.title-now {
+    padding-left: 23px;
+    padding-top: 20px;
+}
+
+.degrees-container {
+    display: flex;
+}
+
+.degrees-text
+{
+    font-size: 70px;
+    line-height: 82.03px;
+    display: inline-block;
+    padding-right: 5px;
+}
+
+.degrees-text-span {
+    padding-right: 3px;
+}
+
+.degree-img-container {
+    position: relative;
+    overflow: visible;
+    /* width: 10px;
+    height: 100%; */
+}
+
+.degree-img {
+    height: 25%;
+    position: absolute;
+    top: 18%;
+}
+
+.icon-now {
+    height: 90px;
+    position: absolute;
+    left: calc(50% - 39px);
+    top: calc(50% - 29.5px);
+}
+
+.footer-now {
+    height: 28px;
+    width: 100%;
+    position: absolute;
+    bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 20px;
+}
+
+.heart-icon {
+    height: 25px;
+    transform: all 0.4s ease;
+    opacity: 0.9;
+}
+
+.heart-icon:active {
+    transform: scale(0.9);
+}
+
+.remove-tab {
+    display: none;
+}
+
+.tab-details {
+    position: relative;
+}
+
+.title-details {
+    padding-left: 17px;
+    padding-top: 33px;
+    padding-bottom: 7px;
+}
+
+.details-list {
+    padding-left: 15px;
+    padding-top: 35px;
+}
+
+
+.tab-forecast {
+    overflow: scroll;
+}
+
+.forecast-container {
+    width: 265px;
+    height: 120px;
+    position: relative;
+    margin-bottom: 9px;
+    margin-left: 13px;
+    border: 1px solid black;
+}
+
+.forecast-container * {
+    font-size: 18px;
+    line-height: 21.09px;
+}
+
+.forecast-date {
+    position: absolute;
+    top: 6px;
+    left: 8px;
+}
+
+.forecast-time {
+    position: absolute;
+    top: 6px;
+    right: 12px;
+}
+
+.forecast-details {
+    position: absolute;
+    left: 10px;
+    bottom: 13px;
+}
+
+.forecast-weather {
+    position: absolute;
+    right: 10px;
+    bottom: 38px;
+}
+
+.forecast-icon {
+    position: absolute;
+    right: 11px;
+    bottom: 3px;
+    height: 40px;
+}
