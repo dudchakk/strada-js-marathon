@@ -6,6 +6,7 @@ import {
 } from './store.js';
 import moment from "moment";
 
+// console.dir(document.cookie);
 
 export const UI_ELEMENTS = {    
     FORM: document.querySelector('form'),

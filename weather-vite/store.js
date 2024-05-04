@@ -1,29 +1,43 @@
+import Cookies from "js-cookie";
+
+function minutesToExpire(min)
+{
+    return new Date(Date.now() + min * 60 * 1000);
+}
+
 export function storeFavoriteCities(favoriteCities)
 {
-    localStorage.setItem('favorite_cities', favoriteCities);
+    var inFifteenMinutes = new Date(new Date().getTime() + 1 * 60 * 1000);
+    Cookies.set('favorite_cities', favoriteCities, {
+        expires: minutesToExpire(60)
+    });
 }
 
 export function getFavoriteCities()
 {
-    return localStorage.getItem('favorite_cities');
+    return Cookies.get('favorite_cities');
 }
 
 export function storeCityName(cityName)
 {
-    localStorage.setItem('city_name', cityName);
+    Cookies.set('city_name', cityName, {
+        expires: minutesToExpire(60)
+    });
 }
 
 export function getCityName()
 {
-    return localStorage.getItem('city_name');
+    return Cookies.get('city_name');
 }
 
 export function storeChosenTab(tab)
 {
-    localStorage.setItem('chosen_tab', tab);
+    Cookies.set('chosen_tab', tab, {
+        expires: minutesToExpire(60)
+    });
 }
 
 export function getChosenTab()
 {
-    return localStorage.getItem('chosen_tab');
+    return Cookies.get('chosen_tab');
 }
