@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>Натисніть "Q" і "W" разом (можна будь-якою мовою).</p>
+
+    <script>
+        function runOnKeys(func, ...codes)
+        {
+            let pressedKeys = new Set();
+
+            function runKeyCombination(event)
+            {
+                pressedKeys.add(event.code);
+
+                for(let code of codes) {
+                    if(!pressedKeys.has(code)) return false;
+                }
+
+                pressedKeys.clear();
+
+                func();
+            }
+
+            function deleteCode(event)
+            {
+                pressedKeys.delete(event.code);
+            }
+
+            document.addEventListener('keydown', runKeyCombination);
+            document.addEventListener('keyup', deleteCode);
+        }
+
+        runOnKeys(
+        () => alert("Привіт!"),
+        "KeyQ",
+        "KeyW"
+        );
+    </script>
+</body>
+</html>
