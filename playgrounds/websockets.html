@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket</title>
+</head>
+<body>
+    <div id="message"></div>
+
+    <script>
+        let socket = new WebSocket("wss://javascript.info/article/websocket/demo/hello");
+
+        socket.onopen = function(){
+            socket.send("test test 1");
+        };
+
+        socket.onmessage = function(e) {
+            alert(e.data);
+        };
+
+        socket.onerror = function(error) {
+            console.dir(error);
+        }
+    </script>
+</body>
+</html>
