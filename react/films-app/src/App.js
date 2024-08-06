@@ -1,10 +1,13 @@
-import Modal from './components/Modal';
+import RegisterModal from './components/RegisterModal'
+import LoginModal from './components/LoginModal';
 import './App.css';
 
 function App() {
+  const isRegistered = false
+  
   return (
-    <div className="App">
-      <Modal />
+    <div>
+      { isRegistered ? <LoginModal /> : <RegisterModal /> }
     </div>
   );
 }
