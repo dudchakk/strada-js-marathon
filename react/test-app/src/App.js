@@ -19,14 +19,22 @@ function App() {
   ]);
 
   const deleteTask = (id) => {
-    setTasks(tasks.filter((task) => task.id != id));
+    setTasks(tasks.filter((task) => task.id !== id));
+  };
+
+  const switchReminder = (id) => {
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, reminder: !task.reminder } : task
+      )
+    );
   };
 
   return (
     <div className="container">
       <Header title="hello" />
       {tasks.length ? (
-        <Tasks tasks={tasks} deleteTask={deleteTask} />
+        <Tasks tasks={tasks} deleteTask={deleteTask} switchReminder={switchReminder} />
       ) : (
         "You have to tasks to do! <3"
       )}
