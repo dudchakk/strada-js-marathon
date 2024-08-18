@@ -3,7 +3,7 @@ import LoginModal from './components/LoginModal';
 import './App.css';
 
 function App() {
-  const isRegistered = true
+  const isRegistered = false
   
   return (
     <div>
