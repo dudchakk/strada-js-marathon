@@ -6,6 +6,7 @@ import Answer from './components/Answer'
 
 function App() {
   const [name, setName] = useState('')
+  const [gender, setGender] = useState('')
   const [isFormSubmitted, setIsFormSubmitted] = useState(false)
 
   return (
@@ -13,12 +14,13 @@ function App() {
       {!isFormSubmitted ? (
         <Form
           name={name}
+          setGender={setGender}
           setName={setName}
           isFormSubmitted={isFormSubmitted}
           setIsFormSubmitted={setIsFormSubmitted}
         />
       ) : (
-        <Answer name={name} />
+        <Answer name={name} gender={gender} setIsFormSubmitted={setIsFormSubmitted}/>
       )}
     </div>
   )

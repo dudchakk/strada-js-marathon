@@ -1,22 +1,22 @@
-const Form = ({ name, setName, isFormSubmitted, setIsFormSubmitted }) => {
+import { getGender } from '../constants'
+
+const Form = ({ name, setGender, setName, setIsFormSubmitted }) => {
   const handleNameChange = (e) => {
     setName(e.target.value)
   }
 
-  const handleSubmit = (e) => {
-    console.log(name)
-
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    e.currentTarget.name.value = ''
-    e.currentTarget.name.blur()
 
+    let response = await getGender(name)
+    setGender(response.gender || 'no gender :(')
     setIsFormSubmitted(true)
   }
 
   return (
     <div className='modal'>
       <div className='modal-content'>
-        <h2>Login Form</h2>
+        <h2>Submit Name Form</h2>
         <form name='form' onSubmit={handleSubmit}>
           <input
             type='text'
