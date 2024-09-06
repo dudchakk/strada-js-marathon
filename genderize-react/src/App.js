@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { getStorageName, getStorageGender } from './store'
 
 import './App.css'
 import Form from './components/Form'
@@ -9,6 +10,17 @@ function App() {
   const [gender, setGender] = useState('')
   const [isFormSubmitted, setIsFormSubmitted] = useState(false)
 
+  useEffect(() => {
+    if (getStorageName()) {
+      setName(getStorageName)
+      setIsFormSubmitted(true)
+    }
+    if (getStorageGender) {
+      setGender(getStorageGender)
+      setIsFormSubmitted(true)
+    }
+  }, [])
+  
   return (
     <div className='App'>
       {!isFormSubmitted ? (

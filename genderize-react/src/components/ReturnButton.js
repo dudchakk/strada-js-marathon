@@ -5,7 +5,7 @@ const ReturnButton = ({ setIsFormSubmitted }) => {
 
   return (
     <button className='btn' onClick={handleClick}>
-      Try again!
+      Submit another name!
     </button>
   )
 }
