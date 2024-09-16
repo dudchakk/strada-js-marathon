@@ -1,14 +1,16 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import SelectBlock from '../ui/SelectBlock'
 import CheckboxListBlock from '../ui/CheckboxListBlock'
 import PaginationBlock from './PaginationBlock'
 
-import { sortByItems, releaseYearItems, genresItems } from '../constants'
+import { sortByItems, releaseYearItems } from '../constants'
+import { getGenres } from '../api'
 
 const Filters = () => {
   const [sortByValue, setSortByValue] = useState('Popularity')
   const [releaseYearValue, setReleaseYearValue] = useState(2000)
+  const [genres, setGenres] = useState()
 
   const handleSortByChange = (e) => {
     setSortByValue(e.target.value)
@@ -17,6 +19,14 @@ const Filters = () => {
   const handleReleaseYearChange = (e) => {
     setReleaseYearValue(e.target.value)
   }
+
+  useEffect(() => {
+    const callGenres = async () => {
+      const response = await getGenres()
+      setGenres(response.genres)
+    }
+    callGenres()
+  }, [])
 
   return (
     <div className='filters'>
@@ -36,7 +46,7 @@ const Filters = () => {
         listItems={releaseYearItems}
         handleChange={handleReleaseYearChange}
       />
-      <CheckboxListBlock listItems={genresItems} />
+      {genres && <CheckboxListBlock listItems={genres} />}
       <PaginationBlock />
     </div>
   )

@@ -5,7 +5,7 @@ import Select from '@mui/material/Select'
 
 const SelectBlock = ({ title, value, listItems, handleChange }) => {
   const menuItems = listItems.map((item) => (
-    <MenuItem value={item}>{item}</MenuItem>
+    <MenuItem key={item} value={item}>{item}</MenuItem>
   ))
 
   return (
