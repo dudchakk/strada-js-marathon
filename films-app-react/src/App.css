@@ -46,26 +46,6 @@ header div {
   margin-bottom: 5px;
 }
 
-.sort-by::after {
-  content: '';
-  width: 100%;
-  border-bottom: 1px solid #525151;
-  display: block;
-}
-
-.sort-by div {
-  font-size: 14px;
-  color: #525151;
-}
-
-select {
-  width: 100%;
-  height: 34px;
-  border-style: none;
-  margin-left: -4px;
-  margin-bottom: 3px;
-}
-
 .MuiFormGroup-root {
   margin-left: 20px;
   margin-top: 5px;
