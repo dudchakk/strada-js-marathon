@@ -60,7 +60,7 @@ const Filters = () => {
       {genres && (
         <CheckboxListBlock
           listItems={genres}
-          filters={filters}
+          checkedGenres={filters.checkedGenres}
           dispatch={dispatch}
         />
       )}
