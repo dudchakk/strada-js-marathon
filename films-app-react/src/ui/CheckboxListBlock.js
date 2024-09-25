@@ -4,7 +4,9 @@ import Checkbox from '@mui/material/Checkbox'
 
 const CheckboxListBlock = ({ listItems, checkedGenres, setCheckedGenres }) => {
   const handleChecked = (id) => {
-    setCheckedGenres([...checkedGenres, id])
+    checkedGenres.includes(id)
+      ? setCheckedGenres(checkedGenres.filter((itemId) => itemId !== id))
+      : setCheckedGenres([...checkedGenres, id])
   }
 
   const checkboxItems = listItems
