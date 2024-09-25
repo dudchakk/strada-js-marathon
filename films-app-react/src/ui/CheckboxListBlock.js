@@ -2,11 +2,13 @@ import FormGroup from '@mui/material/FormGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
 
-const CheckboxListBlock = ({ listItems, checkedGenres, setCheckedGenres }) => {
+const CheckboxListBlock = ({ listItems, filters, dispatch }) => {
+
   const handleChecked = (id) => {
-    checkedGenres.includes(id)
-      ? setCheckedGenres(checkedGenres.filter((itemId) => itemId !== id))
-      : setCheckedGenres([...checkedGenres, id])
+    dispatch({ 
+      type: 'check_genre',
+      id: id
+    })
   }
 
   const checkboxItems = listItems
@@ -16,7 +18,7 @@ const CheckboxListBlock = ({ listItems, checkedGenres, setCheckedGenres }) => {
         key={item.id}
         control={
           <Checkbox
-            checked={checkedGenres.includes(item.id)}
+            checked={filters.checkedGenres.includes(item.id)}
             onClick={() => handleChecked(item.id)}
           />
         }

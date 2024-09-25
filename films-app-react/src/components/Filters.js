@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useReducer } from 'react'
 
 import SelectBlock from '../ui/SelectBlock'
 import CheckboxListBlock from '../ui/CheckboxListBlock'
@@ -7,19 +7,24 @@ import PaginationBlock from './PaginationBlock'
 
 import { sortByItems, releaseYearItems } from '../constants'
 import { getGenres } from '../api'
+import { initialValues, filtersReducer } from '../reducer'
 
 const Filters = () => {
-  const [sortByValue, setSortByValue] = useState('Popularity')
-  const [releaseYearValue, setReleaseYearValue] = useState(2000)
+  const [filters, dispatch] = useReducer(filtersReducer, initialValues)
   const [genres, setGenres] = useState()
-  const [checkedGenres, setCheckedGenres] = useState([])
 
   const handleSortByChange = (e) => {
-    setSortByValue(e.target.value)
+    dispatch({
+      type: 'set_sort',
+      sortBy: e.target.value
+    })
   }
 
   const handleReleaseYearChange = (e) => {
-    setReleaseYearValue(e.target.value)
+    dispatch({
+      type: 'set_year',
+      year: e.target.value
+    })
   }
 
   useEffect(() => {
@@ -31,9 +36,7 @@ const Filters = () => {
   }, [])
 
   const handleReset = () => {
-    setSortByValue('Popularity')
-    setReleaseYearValue(2000)
-    setCheckedGenres([])
+    dispatch({ type: 'reset' })
   }
 
   return (
@@ -44,21 +47,21 @@ const Filters = () => {
       </div>
       <SelectBlock
         title='Sort by'
-        value={sortByValue}
+        value={filters.sortBy}
         listItems={sortByItems}
         handleChange={handleSortByChange}
       />
       <SelectBlock
         title='Release year'
-        value={releaseYearValue}
+        value={filters.year}
         listItems={releaseYearItems}
         handleChange={handleReleaseYearChange}
       />
       {genres && (
         <CheckboxListBlock
           listItems={genres}
-          checkedGenres={checkedGenres}
-          setCheckedGenres={setCheckedGenres}
+          filters={filters}
+          dispatch={dispatch}
         />
       )}
       <Button text='Reset filters' handleClick={handleReset}></Button>
