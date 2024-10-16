@@ -1,6 +1,6 @@
-const Button = ({ text, handleClick }) => {
+const Button = ({ text, handleClick = undefined, type = 'button' }) => {
   return (
-    <button onClick={handleClick}>
+    <button onClick={handleClick} type={type}>
       {text}
     </button>
   )
