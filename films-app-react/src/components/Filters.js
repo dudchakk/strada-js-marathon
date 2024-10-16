@@ -1,4 +1,4 @@
-import { useState, useEffect, useReducer } from 'react'
+import { useState, useEffect, useReducer, useContext } from 'react'
 
 import SelectBlock from '../ui/SelectBlock'
 import CheckboxListBlock from '../ui/CheckboxListBlock'
@@ -8,10 +8,12 @@ import PaginationBlock from './PaginationBlock'
 import { sortByItems, releaseYearItems } from '../constants/constants'
 import { getGenres } from '../constants/api'
 import { initialValues, filtersReducer } from '../constants/reducer'
+import { userContext } from '../constants/userContext'
 
 const Filters = () => {
   const [filters, dispatch] = useReducer(filtersReducer, initialValues)
   const [genres, setGenres] = useState()
+  const { token } = useContext(userContext)
 
   const handleSortByChange = (e) => {
     dispatch({
@@ -29,7 +31,7 @@ const Filters = () => {
 
   useEffect(() => {
     const callGenres = async () => {
-      const response = await getGenres()
+      const response = await getGenres(token)
       setGenres(response.genres)
     }
     callGenres()
