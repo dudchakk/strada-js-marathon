@@ -110,3 +110,7 @@ button[type='submit'] {
   margin-top: 30px;
   border-radius: 3px;
 }
+
+header div:last-of-type {
+  cursor: pointer;
+}
