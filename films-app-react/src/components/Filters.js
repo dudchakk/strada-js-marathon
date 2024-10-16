@@ -5,9 +5,9 @@ import CheckboxListBlock from '../ui/CheckboxListBlock'
 import Button from '../ui/Button'
 import PaginationBlock from './PaginationBlock'
 
-import { sortByItems, releaseYearItems } from '../constants'
-import { getGenres } from '../api'
-import { initialValues, filtersReducer } from '../reducer'
+import { sortByItems, releaseYearItems } from '../constants/constants'
+import { getGenres } from '../constants/api'
+import { initialValues, filtersReducer } from '../constants/reducer'
 
 const Filters = () => {
   const [filters, dispatch] = useReducer(filtersReducer, initialValues)

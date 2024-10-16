@@ -1,4 +1,4 @@
-import { preventDefaultForm } from '../constants'
+import { preventDefaultForm } from '../constants/constants'
 import { useState } from 'react'
 
 import Button from '../ui/Button'
