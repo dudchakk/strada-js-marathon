@@ -1,74 +1,37 @@
 import { useState, useEffect, useReducer, useContext } from 'react'
 
-import SelectBlock from '../ui/SelectBlock'
-import CheckboxListBlock from '../ui/CheckboxListBlock'
+import SelectSortBy from './SelectSortBy'
+import SelectReleaseYear from './SelectReleaseYear'
+import CheckboxListGenres from './CheckboxListGenres'
 import Button from '../ui/Button'
 import PaginationBlock from './PaginationBlock'
 
-import { sortByItems, releaseYearItems } from '../constants/constants'
-import { getGenres } from '../constants/api'
 import { initialValues, filtersReducer } from '../constants/reducer'
-import { userContext } from '../constants/userContext'
+import { FiltersContext, DispatchContext } from '../constants/filtersContext'
 
 const Filters = () => {
   const [filters, dispatch] = useReducer(filtersReducer, initialValues)
-  const [genres, setGenres] = useState()
-  const { token } = useContext(userContext)
-
-  const handleSortByChange = (e) => {
-    dispatch({
-      type: 'set_sort',
-      sortBy: e.target.value
-    })
-  }
-
-  const handleReleaseYearChange = (e) => {
-    dispatch({
-      type: 'set_year',
-      year: e.target.value
-    })
-  }
-
-  useEffect(() => {
-    const callGenres = async () => {
-      const response = await getGenres(token)
-      setGenres(response.genres)
-    }
-    callGenres()
-  }, [])
 
   const handleReset = () => {
     dispatch({ type: 'reset' })
   }
 
   return (
-    <div className='filters'>
-      <div>
-        <span>Filters</span>
-        <span>x</span>
-      </div>
-      <SelectBlock
-        title='Sort by'
-        value={filters.sortBy}
-        listItems={sortByItems}
-        handleChange={handleSortByChange}
-      />
-      <SelectBlock
-        title='Release year'
-        value={filters.year}
-        listItems={releaseYearItems}
-        handleChange={handleReleaseYearChange}
-      />
-      {genres && (
-        <CheckboxListBlock
-          listItems={genres}
-          checkedGenres={filters.checkedGenres}
-          dispatch={dispatch}
-        />
-      )}
-      <Button text='Reset filters' handleClick={handleReset}></Button>
-      <PaginationBlock />
-    </div>
+    <FiltersContext.Provider value={filters}>
+      <DispatchContext.Provider value={dispatch}>
+        <div className='filters'>
+          <div>
+            <span>Filters</span>
+            <span>x</span>
+          </div>
+          <SelectSortBy />
+          <SelectReleaseYear />
+          <CheckboxListGenres />
+          <Button text='Reset filters' handleClick={handleReset}></Button>
+          <PaginationBlock />
+        </div>
+      </DispatchContext.Provider>
+    </FiltersContext.Provider>
   )
 }
 

@@ -2,15 +2,7 @@ import FormGroup from '@mui/material/FormGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
 
-const CheckboxListBlock = ({ listItems, checkedGenres, dispatch }) => {
-
-  const handleChecked = (id) => {
-    dispatch({ 
-      type: 'check_genre',
-      id: id
-    })
-  }
-
+const CheckboxList = ({ title, listItems, checkedItems, handleChecked }) => {
   const checkboxItems = listItems
     .slice(0, 5)
     .map((item) => (
@@ -18,7 +10,7 @@ const CheckboxListBlock = ({ listItems, checkedGenres, dispatch }) => {
         key={item.id}
         control={
           <Checkbox
-            checked={checkedGenres.includes(item.id)}
+            checked={checkedItems.includes(item.id)}
             onClick={() => handleChecked(item.id)}
           />
         }
@@ -28,10 +20,10 @@ const CheckboxListBlock = ({ listItems, checkedGenres, dispatch }) => {
 
   return (
     <div>
-      <div>Genres</div>
+      <div>{title}</div>
       <FormGroup>{checkboxItems}</FormGroup>
     </div>
   )
 }
 
-export default CheckboxListBlock
+export default CheckboxList
