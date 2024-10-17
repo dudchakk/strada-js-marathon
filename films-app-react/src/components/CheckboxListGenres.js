@@ -25,7 +25,7 @@ const CheckboxListGenres = () => {
       setGenres(response.genres)
     }
     callGenres()
-  }, [])
+  }, [token])
 
   return (
     <>

@@ -1,4 +1,4 @@
-import { useState, useEffect, useReducer, useContext } from 'react'
+import { useReducer } from 'react'
 
 import SelectSortBy from './SelectSortBy'
 import SelectReleaseYear from './SelectReleaseYear'
