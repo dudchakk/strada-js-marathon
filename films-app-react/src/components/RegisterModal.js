@@ -1,7 +1,9 @@
 import { preventDefaultForm } from '../constants/constants'
 import { useState } from 'react'
 
-import Button from '../ui/Button'
+import TextField from '@mui/material/TextField'
+import Box from '@mui/material/Box'
+import ButtonComponent from '../ui/Button'
 
 const RegisterModal = ({ setIsLoginDispayed }) => {
   const [username, setUsername] = useState('')
@@ -25,26 +27,32 @@ const RegisterModal = ({ setIsLoginDispayed }) => {
   }
 
   return (
-    <div className='modal'>
-      <div className='modal-content'>
+    <Box className='modal'>
+      <Box className='modal-content'>
         <h2>Register Form</h2>
         <form onSubmit={handleSubmit}>
-          <input
+          <TextField
+            variant='standard'
             type='text'
-            placeholder='Username'
+            label='Username'
             name='username'
+            required
+            fullWidth
             onChange={handleUsernameChange}
           />
-          <input
+          <TextField
+            variant='standard'
             type='text'
-            placeholder='Password'
+            label='Password'
             name='password'
+            required
+            fullWidth
             onChange={handlePasswordChange}
           />
-          <Button text='REGISTER' type='submit' />
+          <ButtonComponent text='REGISTER' type='submit' />
         </form>
-      </div>
-    </div>
+      </Box>
+    </Box>
   )
 }
 

@@ -3,7 +3,7 @@ import { useReducer } from 'react'
 import SelectSortBy from './SelectSortBy'
 import SelectReleaseYear from './SelectReleaseYear'
 import CheckboxListGenres from './CheckboxListGenres'
-import Button from '../ui/Button'
+import ButtonComponent from '../ui/Button'
 import PaginationBlock from './PaginationBlock'
 
 import { initialValues, filtersReducer } from '../constants/reducer'
@@ -27,7 +27,10 @@ const Filters = () => {
           <SelectSortBy />
           <SelectReleaseYear />
           <CheckboxListGenres />
-          <Button text='Reset filters' handleClick={handleReset}></Button>
+          <ButtonComponent
+            text='Reset filters'
+            handleClick={handleReset}
+          ></ButtonComponent>
           <PaginationBlock />
         </div>
       </DispatchContext.Provider>

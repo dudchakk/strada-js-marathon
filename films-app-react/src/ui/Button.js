@@ -1,9 +1,15 @@
-const Button = ({ text, handleClick = undefined, type = 'button' }) => {
+import Button from '@mui/material/Button'
+
+const ButtonComponent = ({
+  text,
+  handleClick = undefined,
+  type = 'button',
+}) => {
   return (
-    <button onClick={handleClick} type={type}>
+    <Button variant='outlined' color='black' type={type} onClick={handleClick}>
       {text}
-    </button>
+    </Button>
   )
 }
 
-export default Button
+export default ButtonComponent
