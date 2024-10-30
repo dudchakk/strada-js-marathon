@@ -5,15 +5,16 @@ import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import TextField from '@mui/material/TextField'
 import DoneIcon from '@mui/icons-material/Done'
+import Checkbox from '@mui/material/Checkbox'
 
-import { TasksContext, DispatchContext } from '../tasks-context'
+import { DispatchContext } from '../tasks-context'
 import { preventDefaultForm } from '../constants'
 
 const Task = ({ name, isDone }) => {
-  const tasks = useContext(TasksContext)
   const dispatch = useContext(DispatchContext)
+  const [taskName, setTaskName] = useState(name)
   const [isEditing, setIsEditing] = useState(false)
-  const [taskName, setTaskName] = useState('')
+  const [isChecked, setIsChecked] = useState(isDone)
 
   const handleTaskNameChange = (e) => {
     setTaskName(e.target.value)
@@ -28,6 +29,11 @@ const Task = ({ name, isDone }) => {
 
   const handleDelete = (e) => {
     dispatch({ type: 'delete', name: name })
+  }
+
+  const handleCheck = () => {
+    setIsChecked(!isChecked)
+    dispatch({ type: 'check', name: name })
   }
 
   if (isEditing) {
@@ -54,10 +60,15 @@ const Task = ({ name, isDone }) => {
     )
   } else {
     return (
-      <Box>
-        <span>{name}</span>
+      <Box className='task'>
+        <Checkbox checked={isChecked} onChange={handleCheck} />
+        <span style={{flexGrow: 1}}>{name}</span>
         {!isDone && (
-          <IconButton onClick={() => { setIsEditing(true) }}>
+          <IconButton
+            onClick={() => {
+              setIsEditing(true)
+            }}
+          >
             <EditIcon />
           </IconButton>
         )}

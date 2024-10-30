@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react'
 
-import { Icon, TextField } from '@mui/material'
+import TextField from '@mui/material/TextField'
 import IconButton from '@mui/material/IconButton'
 import AddIcon from '@mui/icons-material/Add'
 
@@ -20,6 +20,7 @@ const AddTask = () => {
     preventDefaultForm(e, e.currentTarget.text)
 
     dispatch({ type: 'add', name: taskName })
+    setTaskName('')
   }
 
   return (
@@ -33,7 +34,7 @@ const AddTask = () => {
         slotProps={{
           input: {
             endAdornment: (
-              <IconButton type='submit'>
+              <IconButton type='submit' disabled={taskName.trim() === ''}>
                 <AddIcon />
               </IconButton>
             ),

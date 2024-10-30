@@ -6,3 +6,8 @@
 .container {
   width: 500px;
 }
+
+.task {
+  display: flex;
+  align-items: center;
+}

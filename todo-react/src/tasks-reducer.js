@@ -19,10 +19,19 @@ export const tasksReducer = (tasks, action) => {
           return task
         }
       })
-    case 'checked':
-      return []
+    case 'check':
+      return tasks.map((task) => {
+        if (task.name === action.name) {
+          return {
+            ...task,
+            isDone: !task.isDone,
+          }
+        } else {
+          return task
+        }
+      })
     case 'delete':
-      return tasks.filter(task => task.name !== action.name)
+      return tasks.filter((task) => task.name !== action.name)
     default:
       throw new Error('Unknown action type')
       return tasks
