@@ -1,16 +1,35 @@
+import { useContext, useState } from 'react'
+
 import { Icon, TextField } from '@mui/material'
 import IconButton from '@mui/material/IconButton'
 import AddIcon from '@mui/icons-material/Add'
 
-const AddTask = ({ addTask, changeTaskName }) => {
+import { TasksContext, DispatchContext } from '../tasks-context'
+import { preventDefaultForm } from '../constants'
+
+const AddTask = () => {
+  const tasks = useContext(TasksContext)
+  const dispatch = useContext(DispatchContext)
+  const [taskName, setTaskName] = useState('')
+
+  const handleTaskNameChange = (e) => {
+    setTaskName(e.target.value)
+  }
+
+  const handleAddTask = (e) => {
+    preventDefaultForm(e, e.currentTarget.text)
+
+    dispatch({ type: 'add', name: taskName })
+  }
+
   return (
-    <form onSubmit={addTask}>
+    <form onSubmit={handleAddTask}>
       <TextField
         variant='standard'
         label='New task name'
         fullWidth
         name='text'
-        onChange={changeTaskName}
+        onChange={handleTaskNameChange}
         slotProps={{
           input: {
             endAdornment: (

@@ -1,35 +1,29 @@
-import { useState } from 'react'
+import { useState, useReducer } from 'react'
 
 import AddTask from './components/AddTask'
 import Tasks from './components/Tasks'
 
-import { initialTasks, preventDefaultForm } from './constants'
+import { initialTasks } from './constants'
+import { tasksReducer } from './tasks-reducer'
+import { TasksContext, DispatchContext } from './tasks-context'
 
 import './App.css'
 
 function App() {
-  const [tasks, setTasks] = useState(initialTasks)
-  const [taskName, setTaskName] = useState('')
-
-  const handleTaskNameChange = (e) => {
-    setTaskName(e.target.value)
-  }
-
-  const handleAddTask = (e) => {
-    preventDefaultForm(e, e.currentTarget.text)
-
-    setTasks([...tasks, { name: taskName, isDone: false }])
-    console.log(taskName)
-  }
+  const [tasks, dispatch] = useReducer(tasksReducer, initialTasks)
 
   return (
-    <div className='App'>
-      <div className='container'>
-        <h2>TODO</h2>
-        <AddTask addTask={handleAddTask} changeTaskName={handleTaskNameChange} />
-        <Tasks tasks={tasks} />
-      </div>
-    </div>
+    <TasksContext.Provider value={tasks}>
+      <DispatchContext.Provider value={dispatch}>
+        <div className='App'>
+          <div className='container'>
+            <h2>TODO</h2>
+            <AddTask />
+            <Tasks />
+          </div>
+        </div>
+      </DispatchContext.Provider>
+    </TasksContext.Provider>
   )
 }
 

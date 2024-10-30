@@ -1,7 +1,13 @@
+import { useContext } from 'react'
+
 import Task from './Task'
 import CheckboxList from '../CheckboxList'
 
-const Tasks = ({ tasks }) => {
+import { TasksContext, DispatchContext } from '../tasks-context'
+
+const Tasks = () => {
+  const tasks = useContext(TasksContext)
+  
   const tasksPlanned = tasks
     .filter((task) => !task.isDone)
     .map((task) => (
