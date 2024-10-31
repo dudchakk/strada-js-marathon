@@ -1,9 +1,11 @@
 import { useReducer } from 'react'
 
+import { IconButton } from '@mui/material'
+import CloseIcon from '@mui/icons-material/Close'
+
 import SelectSortBy from './SelectSortBy'
 import SelectReleaseYear from './SelectReleaseYear'
 import CheckboxListGenres from './CheckboxListGenres'
-import ButtonComponent from '../ui/Button'
 import PaginationBlock from './PaginationBlock'
 
 import { initialValues, filtersReducer } from '../constants/reducer'
@@ -22,15 +24,13 @@ const Filters = () => {
         <div className='filters'>
           <div>
             <span>Filters</span>
-            <span>x</span>
+            <IconButton onClick={handleReset}>
+              <CloseIcon />
+            </IconButton>
           </div>
           <SelectSortBy />
           <SelectReleaseYear />
           <CheckboxListGenres />
-          <ButtonComponent
-            text='Reset filters'
-            handleClick={handleReset}
-          ></ButtonComponent>
           <PaginationBlock />
         </div>
       </DispatchContext.Provider>

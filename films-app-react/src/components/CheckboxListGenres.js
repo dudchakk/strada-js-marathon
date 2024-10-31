@@ -1,5 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 
+import { Autocomplete, TextField, Checkbox } from '@mui/material'
+
 import CheckboxList from '../ui/CheckboxList'
 
 import { FiltersContext, DispatchContext } from '../constants/filtersContext'
@@ -30,12 +32,26 @@ const CheckboxListGenres = () => {
   return (
     <>
       {genres && (
-        <CheckboxList
-          title='Genres'
-          listItems={genres}
-          checkedItems={filters.checkedGenres}
-          handleChecked={handleChecked}
-        ></CheckboxList>
+        <Autocomplete
+          multiple
+          options={genres}
+          disableCloseOnSelect
+          getOptionLabel={(option) => option.name}
+          renderOption={(props, option, { selected }) => {
+            const { key, ...optionProps } = props;
+            return (
+              <li key={key} {...optionProps}>
+                <Checkbox
+                  checked={selected}
+                />
+                {option.name}
+              </li>
+            );
+          }}
+          renderInput={(params) => (
+            <TextField {...params} label="Genres" />
+          )}
+        />
       )}
     </>
   )
