@@ -17,11 +17,11 @@ const SelectReleaseYear = () => {
 
   return (
     <Box>
-      <Box sx={{ marginBottom: '45px' }}>Release year:</Box>
+      <Box sx={{ marginBottom: '55px' }}>Release year:</Box>
       <Slider
         value={filters.yearRange}
         onChange={handleReleaseYearChange}
-        valueLabelDisplay='auto'
+        valueLabelDisplay='on'
         min={1960}
         max={2025}
       />
