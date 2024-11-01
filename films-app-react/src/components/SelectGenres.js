@@ -14,10 +14,10 @@ const CheckboxListGenres = () => {
   const { token } = useContext(userContext)
   const [genres, setGenres] = useState()
 
-  const handleChecked = (id) => {
+  const handleChange = (event, value) => {
     dispatch({
-      type: 'check_genre',
-      id: id,
+      type: 'change_genres',
+      checkedGenres: value
     })
   }
 
@@ -35,14 +35,16 @@ const CheckboxListGenres = () => {
         <Autocomplete
           multiple
           options={genres}
+          value={filters.checkedGenres}
+          onChange={handleChange}
           disableCloseOnSelect
           getOptionLabel={(option) => option.name}
-          renderOption={(props, option, { selected }) => {
+          renderOption={(props, option) => {
             const { key, ...optionProps } = props;
             return (
               <li key={key} {...optionProps}>
                 <Checkbox
-                  checked={selected}
+                  checked={filters.checkedGenres.includes(option)}
                 />
                 {option.name}
               </li>

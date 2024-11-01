@@ -16,12 +16,11 @@ export const filtersReducer = (filters, action) => {
         ...filters,
         yearRange: action.yearRange
       }
-    case 'check_genre':
+    case 'change_genres':
+      console.log(action.checkedGenres)
       return {
         ...filters,
-        checkedGenres: filters.checkedGenres.includes(action.id)
-          ? filters.checkedGenres.filter((itemId) => itemId !== action.id)
-          : [...filters.checkedGenres, action.id]
+        checkedGenres: action.checkedGenres
       }
     case 'reset':
       return initialValues

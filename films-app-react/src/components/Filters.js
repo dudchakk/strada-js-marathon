@@ -5,7 +5,7 @@ import CloseIcon from '@mui/icons-material/Close'
 
 import SelectSortBy from './SelectSortBy'
 import SelectReleaseYear from './SelectReleaseYear'
-import CheckboxListGenres from './CheckboxListGenres'
+import CheckboxListGenres from './SelectGenres'
 import PaginationBlock from './PaginationBlock'
 
 import { initialValues, filtersReducer } from '../constants/reducer'
