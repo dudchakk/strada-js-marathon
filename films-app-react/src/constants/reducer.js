@@ -1,6 +1,6 @@
 export const initialValues = {
   sortBy: 'Popularity',
-  year: 2000,
+  yearRange: [1990, 2010], 
   checkedGenres: []
 }
 
@@ -14,7 +14,7 @@ export const filtersReducer = (filters, action) => {
     case 'set_year':
       return {
         ...filters,
-        year: action.year
+        yearRange: action.yearRange
       }
     case 'check_genre':
       return {
