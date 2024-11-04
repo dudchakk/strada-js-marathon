@@ -1,5 +1,8 @@
 import { useState } from 'react'
 
+import { IconButton, Paper } from '@mui/material'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+
 import RegisterModal from './RegisterModal'
 import LoginModal from './LoginModal'
 
@@ -8,16 +11,26 @@ const Header = () => {
   const isRegistered = false
 
   return (
-    <header>
-      <div>Films</div>
-      <div onClick={() => setIsLoginDispayed(true)}>Login</div>
+    <>
+      <Paper>
+        <header>
+          <div>Films</div>
+          <IconButton
+            color='inherit'
+            sx={{ marginRight: '20px' }}
+            onClick={() => setIsLoginDispayed(true)}
+          >
+            <AccountCircleIcon />
+          </IconButton>
+        </header>
+      </Paper>
       {isLoginDispayed &&
         (isRegistered ? (
           <LoginModal setIsLoginDispayed={setIsLoginDispayed} />
         ) : (
           <RegisterModal setIsLoginDispayed={setIsLoginDispayed} />
         ))}
-    </header>
+    </>
   )
 }
 

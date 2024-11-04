@@ -12,12 +12,14 @@ h2 {
   font-size: 21px;
   text-align: center;
   margin-bottom: 35px;
+  color: #000;
 }
 
 header {
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid #525151;
+  background-color: #2196F3;
+  color: #fff;
 }
 
 header > div {
@@ -76,7 +78,7 @@ button:active {
 .modal {
   display: block;
   position: fixed;
-  z-index: 1;
+  z-index: 2;
   left: 0;
   top: 0;
   width: 100%;
