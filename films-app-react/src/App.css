@@ -29,11 +29,8 @@ header > div {
 .filters {
   display: flex;
   flex-direction: column;
-  border: 1px solid #525151;
   padding: 20px;
   width: 30%;
-  height: calc(100% - 105px);
-  margin: 20px;
 }
 
 .filters div:first-of-type {

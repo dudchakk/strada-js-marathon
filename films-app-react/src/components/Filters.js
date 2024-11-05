@@ -1,6 +1,6 @@
 import { useReducer } from 'react'
 
-import { IconButton } from '@mui/material'
+import { IconButton, Paper } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 
 import SelectSortBy from './SelectSortBy'
@@ -21,7 +21,7 @@ const Filters = () => {
   return (
     <FiltersContext.Provider value={filters}>
       <DispatchContext.Provider value={dispatch}>
-        <div className='filters'>
+        <Paper className='filters'>
           <div>
             <span>Filters</span>
             <IconButton onClick={handleReset}>
@@ -32,7 +32,7 @@ const Filters = () => {
           <SelectReleaseYear />
           <CheckboxListGenres />
           <PaginationBlock />
-        </div>
+        </Paper>
       </DispatchContext.Provider>
     </FiltersContext.Provider>
   )
