@@ -1,12 +1,34 @@
+import { useState, useEffect, useContext } from 'react'
+
 import { Box } from '@mui/material'
 
 import FilmCard from './FilmCard'
 
-import { films } from '../constants/constants'
+import { getFilms } from '../constants/api'
+import { FiltersContext } from '../constants/filtersContext'
+import { UserContext } from '../constants/userContext'
 
 const Films = () => {
+  const { tokenFilms } = useContext(UserContext)
+  const filters = useContext(FiltersContext)
+  const [films, setFilms] = useState([])
+
+  useEffect(() => {
+    const callFilms = async () => {
+      const response = await getFilms(filters.sortBy, tokenFilms)
+      setFilms(response.results)
+      console.log(response.results)
+    }
+    callFilms()
+  }, [filters.sortBy, tokenFilms])
+
   const filmItems = films.map((film) => (
-    <FilmCard name={film.name} rating={film.rating} img={film.img} />
+    <FilmCard
+      key={film.id}
+      title={film.title}
+      rating={film.vote_average}
+      img={film.backdrop_path}
+    />
   ))
 
   return (

@@ -1,6 +1,8 @@
 import { createContext } from 'react'
 
-export const userContext = createContext({
-  token:
+export const UserContext = createContext({
+  tokenGenres:
     'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4YzViODdjMzAwNTI1M2ZiYzU4ODMzMGMzMmNlNDE2OCIsIm5iZiI6MTcyNjQ5NDk5OC4wNjcyMjEsInN1YiI6IjY2ZTgzNzU3OWRmYmJkZjBlNmQwMDcxZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.sSPChq45ckS5P41iVeDiCiRxvxYhkcwHMuD822is2EM',
+  tokenFilms:
+    'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4YzViODdjMzAwNTI1M2ZiYzU4ODMzMGMzMmNlNDE2OCIsIm5iZiI6MTczMDg4NTU4Mi43OTY1ODQ0LCJzdWIiOiI2NmU4Mzc1NzlkZmJiZGYwZTZkMDA3MWQiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.8s4tZWpepW7mjXb2Qae36--cxmkqlU8M3tj7X9cTZH4',
 })

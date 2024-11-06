@@ -2,25 +2,23 @@ import {
   Card,
   CardMedia,
   CardHeader,
-  CardContent,
-  Typography,
   IconButton,
   Paper,
 } from '@mui/material'
 
 import StarOutlineIcon from '@mui/icons-material/StarOutline'
 
-const FilmCard = ({ name, rating, img }) => {
+const FilmCard = ({ title, rating, img }) => {
   return (
     <Paper sx={{ width: '296px', height: '324px', margin: '10px' }}>
       <Card sx={{ height: '100%' }}>
         <CardMedia
           component='img'
-          image='public\download (3).jpg'
+          src={`https://image.tmdb.org/t/p/w300${img}`}
           height={240}
         />
         <CardHeader
-          title={name}
+          title={title}
           subheader={`Rating ${rating}`}
           action={
             <IconButton>
