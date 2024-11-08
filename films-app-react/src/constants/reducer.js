@@ -1,7 +1,8 @@
 export const initialValues = {
   sortBy: 'Popularity',
   yearRange: [1990, 2010], 
-  checkedGenres: []
+  checkedGenres: [],
+  page: 1
 }
 
 export const filtersReducer = (filters, action) => {
@@ -16,6 +17,11 @@ export const filtersReducer = (filters, action) => {
         ...filters,
         yearRange: action.yearRange
       }
+    case 'set_page':
+      return {
+        ...filters,
+        page: action.page
+      }
     case 'change_genres':
       console.log(action.checkedGenres)
       return {
@@ -26,6 +32,5 @@ export const filtersReducer = (filters, action) => {
       return initialValues
     default:
       throw Error('Undefined type')
-      return
   }
 }

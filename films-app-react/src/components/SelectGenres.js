@@ -2,8 +2,6 @@ import { useContext, useEffect, useState } from 'react'
 
 import { Autocomplete, TextField, Checkbox } from '@mui/material'
 
-import CheckboxList from '../ui/CheckboxList'
-
 import { FiltersContext, DispatchContext } from '../constants/filtersContext'
 import { getGenres } from '../constants/api'
 import { UserContext } from '../constants/userContext'
