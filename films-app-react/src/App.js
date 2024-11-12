@@ -21,7 +21,7 @@ function App() {
       <FiltersContext.Provider value={filters}>
         <DispatchContext.Provider value={dispatch}>
           <div className='App'>
-            <Header />
+            <Header title='Films' />
             <Box
               sx={{
                 display: 'flex',

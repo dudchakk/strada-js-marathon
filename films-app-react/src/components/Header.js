@@ -6,7 +6,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import RegisterModal from './RegisterModal'
 import LoginModal from './LoginModal'
 
-const Header = () => {
+const Header = ({ title }) => {
   const [isLoginDispayed, setIsLoginDispayed] = useState(false)
   const isRegistered = false
 
@@ -14,7 +14,7 @@ const Header = () => {
     <>
       <Paper>
         <header>
-          <div>Films</div>
+          <div>{title}</div>
           <IconButton
             color='inherit'
             sx={{ marginRight: '20px' }}
